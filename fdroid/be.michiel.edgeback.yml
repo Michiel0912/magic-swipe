@@ -1,0 +1,41 @@
+Categories:
+  - System
+License: MIT
+AuthorName: Michiel0912
+WebSite: https://github.com/Michiel0912/magic-swipe
+SourceCode: https://github.com/Michiel0912/magic-swipe
+IssueTracker: https://github.com/Michiel0912/magic-swipe/issues
+Changelog: https://github.com/Michiel0912/magic-swipe/blob/main/CHANGELOG.md
+
+AutoName: Magic Swipe
+Summary: Make Android Back swipes easier to start from the screen edge
+Description: |-
+  Magic Swipe adds narrow transparent touch zones just inside Android's native
+  Back-gesture edges. It is intended for phones where a protective case, raised
+  side lip, or curved display makes the native edge swipe difficult to start.
+
+  The app uses Android's AccessibilityService only to detect swipes inside its
+  own edge overlay and trigger the system Back action. It does not retrieve
+  screen content, does not use the network, contains no analytics, and requires
+  no root access or system modification.
+
+  Compatibility is currently confirmed only on HONOR Magic8 Pro with MagicOS 10
+  / Android 16. Other HONOR and Android devices are expected or experimental
+  until confirmed by real-device reports.
+
+RepoType: git
+Repo: https://github.com/Michiel0912/magic-swipe.git
+
+Builds:
+  - versionName: 0.3.0
+    versionCode: 6
+    commit: v0.3.0
+    output: MagicSwipe-v0.3.0-unsigned.apk
+    build:
+      - export ANDROID_SDK_ROOT=$$SDK$$
+      - bash fdroid/build.sh
+
+AutoUpdateMode: Version v%v
+UpdateCheckMode: Tags ^v[0-9]+\.[0-9]+\.[0-9]+$
+CurrentVersion: 0.3.0
+CurrentVersionCode: 6
