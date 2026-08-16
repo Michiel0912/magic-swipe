@@ -27,15 +27,15 @@ RepoType: git
 Repo: https://github.com/Michiel0912/magic-swipe.git
 
 Builds:
-  - versionName: 0.3.0
-    versionCode: 6
-    commit: v0.3.0
-    output: MagicSwipe-v0.3.0-unsigned.apk
+  - versionName: 0.3.1
+    versionCode: 7
+    commit: v0.3.1
+    output: MagicSwipe-v0.3.1-unsigned.apk
     build:
       - export ANDROID_SDK_ROOT=$$SDK$$
       - bash fdroid/build.sh
 
 AutoUpdateMode: Version v%v
 UpdateCheckMode: Tags ^v[0-9]+\.[0-9]+\.[0-9]+$
-CurrentVersion: 0.3.0
-CurrentVersionCode: 6
+CurrentVersion: 0.3.1
+CurrentVersionCode: 7
