@@ -99,9 +99,9 @@ MagicSwipe-v0.3.0.apk
 
 ### Signing and upgrades
 
-The Android package ID remains `be.michiel.edgeback` and the AccessibilityService component remains unchanged. Those internal legacy identifiers are intentionally retained so existing Edge Back Extender installations can upgrade to Magic Swipe instead of becoming a second app.
+The Android package ID remains `be.michiel.edgeback` and the AccessibilityService component remains unchanged. Those internal legacy identifiers are intentionally retained so installations from pre-v0.3 builds can upgrade to Magic Swipe instead of becoming a second app.
 
-The local build uses `edgeback-local.keystore`. Keep that signing key safe if you distribute builds that must upgrade over one another.
+The local build uses the legacy signing-key filename `edgeback-local.keystore` for upgrade compatibility. Keep that signing key safe if you distribute builds that must upgrade over one another.
 
 ## Privacy
 
