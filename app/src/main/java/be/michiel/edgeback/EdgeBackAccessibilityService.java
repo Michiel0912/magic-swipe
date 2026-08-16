@@ -22,8 +22,14 @@ public final class EdgeBackAccessibilityService extends AccessibilityService
     private SharedPreferences prefs;
     private EdgeTouchView leftView;
     private EdgeTouchView rightView;
+
+    private int screenHeightPx;
+    private int overlayTopPx;
+    private int userBottomPx;
+    private int minActiveHeightPx;
     private int imeBottomInsetPx;
-    private boolean imeRebuildPosted;
+    private int pendingImeBottomInsetPx;
+    private boolean imeUpdatePosted;
 
     @Override
     protected void onServiceConnected() {
@@ -48,6 +54,8 @@ public final class EdgeBackAccessibilityService extends AccessibilityService
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         imeBottomInsetPx = 0;
+        pendingImeBottomInsetPx = 0;
+        imeUpdatePosted = false;
         rebuildOverlays();
     }
 
@@ -73,30 +81,53 @@ public final class EdgeBackAccessibilityService extends AccessibilityService
         int extensionWidthPx = targetWidthPx - nativeInsetPx;
         if (extensionWidthPx <= 0) return;
 
-        int screenHeight = getResources().getDisplayMetrics().heightPixels;
-        int topPx = Prefs.dp(this, prefs.getInt(Prefs.TOP_EXCLUDE_DP, Prefs.DEFAULT_TOP_EXCLUDE_DP));
-        int userBottomPx = Prefs.dp(this,
+        screenHeightPx = getResources().getDisplayMetrics().heightPixels;
+        overlayTopPx = Prefs.dp(this,
+                prefs.getInt(Prefs.TOP_EXCLUDE_DP, Prefs.DEFAULT_TOP_EXCLUDE_DP));
+        userBottomPx = Prefs.dp(this,
                 prefs.getInt(Prefs.BOTTOM_EXCLUDE_DP, Prefs.DEFAULT_BOTTOM_EXCLUDE_DP));
+        minActiveHeightPx = Prefs.dp(this, 120);
 
-        // Never let the touch overlay cover the visible software keyboard. This is more
-        // reliable than relying only on window Z-order because accessibility overlays may
-        // still receive edge touches differently across OEM window managers.
-        int effectiveBottomPx = Math.max(userBottomPx, imeBottomInsetPx);
-        int activeHeight = Math.max(Prefs.dp(this, 120), screenHeight - topPx - effectiveBottomPx);
+        // Prime the IME inset from the current window metrics when available. This avoids a
+        // brief full-height overlay while a keyboard is already visible when the service or
+        // preferences are rebuilt.
+        imeBottomInsetPx = readCurrentImeBottomInsetPx(imeBottomInsetPx);
+        int activeHeight = calculateActiveHeight(imeBottomInsetPx);
 
         if (prefs.getBoolean(Prefs.LEFT, Prefs.DEFAULT_LEFT)) {
             leftView = new EdgeTouchView(true);
             windowManager.addView(leftView,
-                    makeLayoutParams(true, nativeInsetPx, extensionWidthPx, topPx, activeHeight));
-            installImeInsetTracking(leftView);
+                    makeLayoutParams(true, nativeInsetPx, extensionWidthPx, overlayTopPx, activeHeight));
         }
 
         if (prefs.getBoolean(Prefs.RIGHT, Prefs.DEFAULT_RIGHT)) {
             rightView = new EdgeTouchView(false);
             windowManager.addView(rightView,
-                    makeLayoutParams(false, nativeInsetPx, extensionWidthPx, topPx, activeHeight));
-            installImeInsetTracking(rightView);
+                    makeLayoutParams(false, nativeInsetPx, extensionWidthPx, overlayTopPx, activeHeight));
         }
+
+        // A single overlay is enough to observe IME insets. Listening on both sides can create
+        // duplicate callbacks on OEM window managers.
+        View insetSource = leftView != null ? leftView : rightView;
+        if (insetSource != null) installImeInsetTracking(insetSource);
+    }
+
+    private int readCurrentImeBottomInsetPx(int fallback) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R || windowManager == null) return fallback;
+        try {
+            WindowInsets insets = windowManager.getCurrentWindowMetrics().getWindowInsets();
+            if (insets.isVisible(WindowInsets.Type.ime())) {
+                return insets.getInsets(WindowInsets.Type.ime()).bottom;
+            }
+            return 0;
+        } catch (Throwable ignored) {
+            return fallback;
+        }
+    }
+
+    private int calculateActiveHeight(int imeInsetPx) {
+        int effectiveBottomPx = Math.max(userBottomPx, Math.max(0, imeInsetPx));
+        return Math.max(minActiveHeightPx, screenHeightPx - overlayTopPx - effectiveBottomPx);
     }
 
     private void installImeInsetTracking(View view) {
@@ -111,19 +142,39 @@ public final class EdgeBackAccessibilityService extends AccessibilityService
             } catch (Throwable ignored) {
             }
 
-            if (newImeBottom != imeBottomInsetPx) {
-                imeBottomInsetPx = newImeBottom;
-                if (!imeRebuildPosted) {
-                    imeRebuildPosted = true;
-                    v.post(() -> {
-                        imeRebuildPosted = false;
-                        rebuildOverlays();
-                    });
-                }
+            pendingImeBottomInsetPx = newImeBottom;
+            if (pendingImeBottomInsetPx != imeBottomInsetPx && !imeUpdatePosted) {
+                imeUpdatePosted = true;
+                v.post(() -> {
+                    imeUpdatePosted = false;
+                    int latest = pendingImeBottomInsetPx;
+                    if (latest != imeBottomInsetPx) {
+                        imeBottomInsetPx = latest;
+                        updateOverlayHeights();
+                    }
+                });
             }
             return insets;
         });
         view.requestApplyInsets();
+    }
+
+    private void updateOverlayHeights() {
+        if (windowManager == null) return;
+        int height = calculateActiveHeight(imeBottomInsetPx);
+        updateOverlayHeight(leftView, height);
+        updateOverlayHeight(rightView, height);
+    }
+
+    private void updateOverlayHeight(View view, int heightPx) {
+        if (view == null) return;
+        try {
+            WindowManager.LayoutParams params = (WindowManager.LayoutParams) view.getLayoutParams();
+            if (params.height == heightPx) return;
+            params.height = heightPx;
+            windowManager.updateViewLayout(view, params);
+        } catch (Throwable ignored) {
+        }
     }
 
     private WindowManager.LayoutParams makeLayoutParams(boolean left, int nativeInsetPx,
