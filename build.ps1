@@ -86,7 +86,7 @@ Add-Candidate $candidates (Join-Path $env:USERPROFILE 'AppData\Local\Android\Sdk
 Add-Candidate $candidates 'C:\Android\Sdk'
 Add-Candidate $candidates (Join-Path $Root '.android-sdk')
 
-# Reuse an SDK downloaded by an older Magic Swipe / Edge Back Extender build if available.
+# Reuse an SDK downloaded by an older pre-v0.3 project build if available.
 $parent = Split-Path $Root -Parent
 if (Test-Path $parent) {
     foreach ($d in @(Get-ChildItem $parent -Directory -ErrorAction SilentlyContinue)) {
@@ -176,7 +176,7 @@ if ($LASTEXITCODE -ne 0) { throw 'zipalign failed.' }
 
 $keystore = Join-Path $Root 'edgeback-local.keystore'
 if (-not (Test-Path $keystore)) {
-    # Reuse the signing key from an earlier Magic Swipe / Edge Back Extender folder so upgrades work over an existing installation.
+    # Reuse the signing key from an earlier pre-v0.3 project folder so upgrades work over an existing installation.
     $oldKey = $null
     $parentForKey = Split-Path $Root -Parent
     if (Test-Path $parentForKey) {
