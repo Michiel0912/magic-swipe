@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Magic Swipe</string>
+    <string name="service_name">Magic Swipe</string>
+    <string name="accessibility_description">يوسّع مساحة بدء إيماءة الرجوع في النظام باستخدام مناطق شفافة عند الحواف. لا تقرأ الخدمة محتوى الشاشة ولا تستخدم الشبكة.</string>
+    <string name="intro">يضيف شريطًا شفافًا ضيقًا داخل حافة إيماءة الرجوع الحالية مباشرةً، مع إبقاء منطقة الرجوع الأصلية للهاتف دون تغيير.</string>
+    <string name="service_active">الخدمة: مفعّلة</string>
+    <string name="service_inactive">الخدمة: غير مفعّلة</string>
+    <string name="native_zone_format">المنطقة الأصلية المكتشفة: %1$d بكسل (%2$.1f dp). تبدأ المنطقة الإضافية من الداخل مباشرةً.</string>
+    <string name="open_accessibility_settings">فتح إعدادات إمكانية الوصول</string>
+    <string name="section_language">اللغة</string>
+    <string name="language_summary">تتبع لغة النظام افتراضيًا. في Android 13 والإصدارات الأحدث يمكنك اختيار لغة منفصلة للتطبيق.</string>
+    <string name="open_language_settings">لغة التطبيق</string>
+    <string name="open_system_language_settings">فتح إعدادات لغة النظام</string>
+    <string name="section_sides">الجوانب</string>
+    <string name="left_side">الجانب الأيسر</string>
+    <string name="right_side">الجانب الأيمن</string>
+    <string name="section_area_gesture">المنطقة والإيماءة</string>
+    <string name="total_back_zone">إجمالي منطقة الرجوع</string>
+    <string name="suffix_from_edge">dp من حافة الشاشة</string>
+    <string name="swipe_distance">مسافة السحب</string>
+    <string name="suffix_horizontal_before_back">dp حركة أفقية قبل الرجوع</string>
+    <string name="exclude_top">استبعاد الجزء العلوي</string>
+    <string name="suffix_dp">dp</string>
+    <string name="exclude_bottom">استبعاد الجزء السفلي</string>
+    <string name="suffix_bottom_exclusion">dp (يحمي إيماءة الشاشة الرئيسية وزاوية لوحة المفاتيح)</string>
+    <string name="section_behavior">السلوك</string>
+    <string name="haptic_back">اهتزاز عند تنفيذ الرجوع</string>
+    <string name="debug_zones">وضع الاختبار: إظهار المناطق الإضافية</string>
+    <string name="restore_defaults">استعادة الإعدادات الافتراضية</string>
+    <string name="privacy_text">الخصوصية: لا يوجد إذن INTERNET ولا تحليلات ولا وصول إلى محتوى الشاشة. تنفذ خدمة إمكانية الوصول الإجراء GLOBAL_ACTION_BACK فقط بعد سحب في منطقة الحافة الإضافية.</string>
+    <string name="seek_value_format">%1$s: %2$d %3$s</string>
+</resources>

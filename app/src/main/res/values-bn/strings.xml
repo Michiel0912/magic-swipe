@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Magic Swipe</string>
+    <string name="service_name">Magic Swipe</string>
+    <string name="accessibility_description">স্বচ্ছ প্রান্ত অঞ্চল ব্যবহার করে সিস্টেম Back gesture শুরু করার ব্যবহারযোগ্য এলাকা বাড়ায়। পরিষেবাটি স্ক্রিনের বিষয়বস্তু পড়ে না এবং নেটওয়ার্ক ব্যবহার করে না।</string>
+    <string name="intro">বিদ্যমান Back প্রান্তের ঠিক ভেতরে একটি সরু স্বচ্ছ অঞ্চল যোগ করে। ফোনের নিজস্ব Back অঞ্চল অপরিবর্তিত থাকে।</string>
+    <string name="service_active">সেবা: সক্রিয়</string>
+    <string name="service_inactive">সেবা: নিষ্ক্রিয়</string>
+    <string name="native_zone_format">সনাক্ত করা নিজস্ব অঞ্চল: %1$d px (%2$.1f dp)। অতিরিক্ত অঞ্চলটি এর ঠিক ভেতর থেকে শুরু হয়।</string>
+    <string name="open_accessibility_settings">Accessibility সেটিংস খুলুন</string>
+    <string name="section_language">ভাষা</string>
+    <string name="language_summary">ডিফল্টভাবে সিস্টেমের ভাষা অনুসরণ করে। Android 13 বা পরের সংস্করণে আলাদা অ্যাপ ভাষা বেছে নেওয়া যায়।</string>
+    <string name="open_language_settings">অ্যাপ ভাষার সেটিংস</string>
+    <string name="open_system_language_settings">সিস্টেম ভাষার সেটিংস খুলুন</string>
+    <string name="section_sides">পাশ</string>
+    <string name="left_side">বাম পাশ</string>
+    <string name="right_side">ডান পাশ</string>
+    <string name="section_area_gesture">এলাকা ও gesture</string>
+    <string name="total_back_zone">মোট Back অঞ্চল</string>
+    <string name="suffix_from_edge">স্ক্রিনের প্রান্ত থেকে dp</string>
+    <string name="swipe_distance">Swipe দূরত্ব</string>
+    <string name="suffix_horizontal_before_back">Back চালুর আগে অনুভূমিক চলাচল dp</string>
+    <string name="exclude_top">উপরের অংশ বাদ দিন</string>
+    <string name="suffix_dp">dp</string>
+    <string name="exclude_bottom">নিচের অংশ বাদ দিন</string>
+    <string name="suffix_bottom_exclusion">dp (Home gesture ও কিবোর্ডের কোণ রক্ষা করে)</string>
+    <string name="section_behavior">আচরণ</string>
+    <string name="haptic_back">Back এ haptic feedback</string>
+    <string name="debug_zones">টেস্ট মোড: অতিরিক্ত অঞ্চল দেখান</string>
+    <string name="restore_defaults">ডিফল্ট পুনরুদ্ধার করুন</string>
+    <string name="privacy_text">গোপনীয়তা: INTERNET অনুমতি নেই, analytics নেই এবং স্ক্রিনের বিষয়বস্তুতে প্রবেশ নেই। অতিরিক্ত প্রান্ত অঞ্চলে swipe হলে AccessibilityService শুধু GLOBAL_ACTION_BACK চালায়।</string>
+    <string name="seek_value_format">%1$s: %2$d %3$s</string>
+</resources>

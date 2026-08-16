@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Magic Swipe</string><string name="service_name">Magic Swipe</string>
+<string name="accessibility_description">Rozšiřuje použitelnou počáteční oblast systémového gesta Zpět pomocí průhledných okrajových zón. Služba nečte obsah obrazovky a nepoužívá síť.</string>
+<string name="intro">Přidá úzkou průhlednou zónu těsně dovnitř stávajícího okraje gesta Zpět. Nativní zóna telefonu zůstane beze změny.</string>
+<string name="service_active">Služba: AKTIVNÍ</string><string name="service_inactive">Služba: NEAKTIVNÍ</string>
+<string name="native_zone_format">Zjištěná nativní zóna: %1$d px (%2$.1f dp). Doplňková zóna začíná hned uvnitř.</string>
+<string name="open_accessibility_settings">Otevřít nastavení přístupnosti</string><string name="section_language">Jazyk</string>
+<string name="language_summary">Ve výchozím nastavení používá jazyk systému. V Androidu 13 a novějším lze zvolit samostatný jazyk aplikace.</string>
+<string name="open_language_settings">Jazyk aplikace</string><string name="open_system_language_settings">Otevřít nastavení jazyka systému</string>
+<string name="section_sides">Strany</string><string name="left_side">Levá strana</string><string name="right_side">Pravá strana</string>
+<string name="section_area_gesture">Oblast a gesto</string><string name="total_back_zone">Celková zóna Zpět</string>
+<string name="suffix_from_edge">dp od okraje obrazovky</string><string name="swipe_distance">Délka přejetí</string>
+<string name="suffix_horizontal_before_back">dp vodorovného pohybu před Zpět</string><string name="exclude_top">Vynechat horní část</string>
+<string name="suffix_dp">dp</string><string name="exclude_bottom">Vynechat dolní část</string>
+<string name="suffix_bottom_exclusion">dp (chrání gesto Domů a roh klávesnice)</string><string name="section_behavior">Chování</string>
+<string name="haptic_back">Haptická odezva při Zpět</string><string name="debug_zones">Testovací režim: zobrazit doplňkové zóny</string>
+<string name="restore_defaults">Obnovit výchozí nastavení</string>
+<string name="privacy_text">Soukromí: bez oprávnění INTERNET, bez analytiky a bez přístupu k obsahu obrazovky. Služba přístupnosti provede pouze GLOBAL_ACTION_BACK po přejetí v doplňkové okrajové zóně.</string>
+<string name="seek_value_format">%1$s: %2$d %3$s</string>
+</resources>

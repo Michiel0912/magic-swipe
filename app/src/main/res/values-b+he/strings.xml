@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Magic Swipe</string>
+    <string name="service_name">Magic Swipe</string>
+    <string name="accessibility_description">מרחיב את אזור ההתחלה השימושי של מחוות Back של המערכת באמצעות אזורי קצה שקופים. השירות אינו קורא תוכן מהמסך ואינו משתמש ברשת.</string>
+    <string name="intro">מוסיף אזור שקוף וצר ממש בתוך קצה ה-Back הקיים. אזור ה-Back המקורי של הטלפון נשאר ללא שינוי.</string>
+    <string name="service_active">שירות: פעיל</string>
+    <string name="service_inactive">שירות: לא פעיל</string>
+    <string name="native_zone_format">אזור מקורי שזוהה: %1$d px (%2$.1f dp). האזור הנוסף מתחיל ממש בתוכו.</string>
+    <string name="open_accessibility_settings">פתיחת הגדרות נגישות</string>
+    <string name="section_language">שפה</string>
+    <string name="language_summary">כברירת מחדל נעשה שימוש בשפת המערכת. ב-Android 13 ומעלה ניתן לבחור שפה נפרדת לאפליקציה.</string>
+    <string name="open_language_settings">הגדרות שפת האפליקציה</string>
+    <string name="open_system_language_settings">פתיחת הגדרות שפת המערכת</string>
+    <string name="section_sides">צדדים</string>
+    <string name="left_side">צד שמאל</string>
+    <string name="right_side">צד ימין</string>
+    <string name="section_area_gesture">אזור ומחווה</string>
+    <string name="total_back_zone">אזור Back כולל</string>
+    <string name="suffix_from_edge">dp מקצה המסך</string>
+    <string name="swipe_distance">מרחק Swipe</string>
+    <string name="suffix_horizontal_before_back">dp תנועה אופקית לפני Back</string>
+    <string name="exclude_top">החרגת החלק העליון</string>
+    <string name="suffix_dp">dp</string>
+    <string name="exclude_bottom">החרגת החלק התחתון</string>
+    <string name="suffix_bottom_exclusion">dp (מגן על מחוות Home ועל פינת המקלדת)</string>
+    <string name="section_behavior">התנהגות</string>
+    <string name="haptic_back">משוב רטט ב-Back</string>
+    <string name="debug_zones">מצב בדיקה: הצגת האזורים הנוספים</string>
+    <string name="restore_defaults">שחזור ברירות מחדל</string>
+    <string name="privacy_text">פרטיות: ללא הרשאת INTERNET, ללא analytics וללא גישה לתוכן המסך. ה-AccessibilityService מפעיל רק GLOBAL_ACTION_BACK לאחר Swipe באזור הקצה הנוסף.</string>
+    <string name="seek_value_format">%1$s: %2$d %3$s</string>
+</resources>

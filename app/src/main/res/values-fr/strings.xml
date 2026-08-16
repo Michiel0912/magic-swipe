@@ -1,33 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Edge Back Extender</string>
-    <string name="service_name">Edge Back Extender</string>
-    <string name="accessibility_description">Étend la zone de départ utilisable du geste Retour du système grâce à des zones transparentes sur les bords. Le service ne lit pas le contenu de l\'écran et n\'utilise pas le réseau.</string>
-    <string name="intro">Ajoute une fine zone transparente juste à l\'intérieur du bord Retour existant. La zone native du téléphone reste inchangée.</string>
-    <string name="service_active">Service : ACTIF</string>
-    <string name="service_inactive">Service : INACTIF</string>
-    <string name="native_zone_format">Zone native détectée : %1$d px (%2$.1f dp). La zone supplémentaire commence juste à l\'intérieur.</string>
-    <string name="open_accessibility_settings">Ouvrir les paramètres d\'accessibilité</string>
-    <string name="section_language">Langue</string>
-    <string name="language_summary">Par défaut, l\'application suit la langue du système. À partir d\'Android 13, vous pouvez choisir une langue distincte pour l\'application.</string>
-    <string name="open_language_settings">Langue de l\'application</string>
-    <string name="open_system_language_settings">Ouvrir les paramètres de langue du système</string>
-    <string name="section_sides">Côtés</string>
-    <string name="left_side">Côté gauche</string>
-    <string name="right_side">Côté droit</string>
-    <string name="section_area_gesture">Zone et geste</string>
-    <string name="total_back_zone">Zone Retour totale</string>
-    <string name="suffix_from_edge">dp depuis le bord de l\'écran</string>
-    <string name="swipe_distance">Distance du balayage</string>
-    <string name="suffix_horizontal_before_back">dp de mouvement horizontal avant Retour</string>
-    <string name="exclude_top">Exclure le haut</string>
-    <string name="suffix_dp">dp</string>
-    <string name="exclude_bottom">Exclure le bas</string>
-    <string name="suffix_bottom_exclusion">dp (protège le geste Accueil et le coin du clavier)</string>
-    <string name="section_behavior">Comportement</string>
-    <string name="haptic_back">Retour haptique lors du geste Retour</string>
-    <string name="debug_zones">Mode test : afficher les zones supplémentaires</string>
-    <string name="restore_defaults">Restaurer les valeurs par défaut</string>
-    <string name="privacy_text">Confidentialité : aucune autorisation INTERNET, aucune analyse et aucun accès au contenu de l\'écran. Le service d\'accessibilité exécute uniquement GLOBAL_ACTION_BACK après un balayage dans la zone supplémentaire du bord.</string>
-    <string name="seek_value_format">%1$s : %2$d %3$s</string>
+<string name="app_name">Magic Swipe</string><string name="service_name">Magic Swipe</string><string name="accessibility_description">Étend la zone de départ utilisable du geste Retour du système grâce à des zones transparentes sur les bords. Le service ne lit pas le contenu de l\'écran et n\'utilise pas le réseau.</string><string name="intro">Ajoute une fine zone transparente juste à l\'intérieur du bord Retour existant. La zone native du téléphone reste inchangée.</string><string name="service_active">Service : ACTIF</string><string name="service_inactive">Service : INACTIF</string><string name="native_zone_format">Zone native détectée : %1$d px (%2$.1f dp). La zone supplémentaire commence juste à l\'intérieur.</string><string name="open_accessibility_settings">Ouvrir les paramètres d\'accessibilité</string><string name="section_language">Langue</string><string name="language_summary">Par défaut, l\'application suit la langue du système. À partir d\'Android 13, vous pouvez choisir une langue distincte pour l\'application.</string><string name="open_language_settings">Langue de l\'application</string><string name="open_system_language_settings">Ouvrir les paramètres de langue du système</string><string name="section_sides">Côtés</string><string name="left_side">Côté gauche</string><string name="right_side">Côté droit</string><string name="section_area_gesture">Zone et geste</string><string name="total_back_zone">Zone Retour totale</string><string name="suffix_from_edge">dp depuis le bord de l\'écran</string><string name="swipe_distance">Distance du balayage</string><string name="suffix_horizontal_before_back">dp de mouvement horizontal avant Retour</string><string name="exclude_top">Exclure le haut</string><string name="suffix_dp">dp</string><string name="exclude_bottom">Exclure le bas</string><string name="suffix_bottom_exclusion">dp (protège le geste Accueil et le coin du clavier)</string><string name="section_behavior">Comportement</string><string name="haptic_back">Retour haptique lors du geste Retour</string><string name="debug_zones">Mode test : afficher les zones supplémentaires</string><string name="restore_defaults">Restaurer les valeurs par défaut</string><string name="privacy_text">Confidentialité : aucune autorisation INTERNET, aucune analyse et aucun accès au contenu de l\'écran. Le service d\'accessibilité exécute uniquement GLOBAL_ACTION_BACK après un balayage dans la zone supplémentaire du bord.</string><string name="seek_value_format">%1$s : %2$d %3$s</string>
 </resources>

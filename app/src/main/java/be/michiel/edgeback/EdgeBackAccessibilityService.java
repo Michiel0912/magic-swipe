@@ -32,12 +32,12 @@ public final class EdgeBackAccessibilityService extends AccessibilityService
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        // Bewust leeg: deze service leest geen venster- of scherminhoud.
+        // Intentionally empty: this service does not read window or screen content.
     }
 
     @Override
     public void onInterrupt() {
-        // Geen langlopende accessibility-acties.
+        // No long-running accessibility actions.
     }
 
     @Override
@@ -104,7 +104,7 @@ public final class EdgeBackAccessibilityService extends AccessibilityService
         p.gravity = Gravity.TOP | (left ? Gravity.LEFT : Gravity.RIGHT);
         p.x = nativeInsetPx;
         p.y = topPx;
-        p.setTitle(left ? "EdgeBackExtensionLeft" : "EdgeBackExtensionRight");
+        p.setTitle(left ? "MagicSwipeLeft" : "MagicSwipeRight");
         return p;
     }
 
@@ -163,7 +163,7 @@ public final class EdgeBackAccessibilityService extends AccessibilityService
                         prefs.getInt(Prefs.TRIGGER_DISTANCE_DP, Prefs.DEFAULT_TRIGGER_DISTANCE_DP));
                 long age = SystemClock.uptimeMillis() - downTime;
 
-                // Alleen een duidelijke, korte horizontale beweging naar binnen wordt Back.
+                // Only a clear, short horizontal inward movement triggers Back.
                 if (age <= 900 && inward >= triggerPx && inward > absY * 1.20f) {
                     triggered = true;
                     if (prefs.getBoolean(Prefs.HAPTIC, Prefs.DEFAULT_HAPTIC)) {

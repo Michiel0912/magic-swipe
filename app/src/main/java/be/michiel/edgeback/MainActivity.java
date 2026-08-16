@@ -5,13 +5,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.Gravity;
 import android.view.View;
-import android.view.WindowInsets;
+import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -25,6 +29,16 @@ import android.widget.TextView;
 import java.util.List;
 
 public final class MainActivity extends Activity {
+    private static final int COLOR_BG = Color.rgb(6, 15, 27);
+    private static final int COLOR_CARD = Color.rgb(15, 27, 45);
+    private static final int COLOR_CARD_ALT = Color.rgb(18, 33, 54);
+    private static final int COLOR_BORDER = Color.rgb(32, 55, 79);
+    private static final int COLOR_TEXT = Color.rgb(248, 250, 252);
+    private static final int COLOR_MUTED = Color.rgb(157, 174, 196);
+    private static final int COLOR_CYAN = Color.rgb(34, 211, 238);
+    private static final int COLOR_GREEN = Color.rgb(52, 211, 153);
+    private static final int COLOR_RED = Color.rgb(251, 113, 133);
+
     private SharedPreferences prefs;
     private TextView serviceStatus;
     private TextView nativeInfo;
@@ -33,6 +47,9 @@ public final class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         prefs = Prefs.get(this);
+        getWindow().setStatusBarColor(COLOR_BG);
+        getWindow().setNavigationBarColor(COLOR_BG);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) getWindow().getDecorView().setSystemUiVisibility(0);
         setContentView(buildUi());
     }
 
@@ -43,15 +60,16 @@ public final class MainActivity extends Activity {
     }
 
     private View buildUi() {
-        int pad = Prefs.dp(this, 20);
+        int pad = Prefs.dp(this, 18);
         ScrollView scroll = new ScrollView(this);
+        scroll.setFillViewport(true);
+        scroll.setBackgroundColor(COLOR_BG);
+        scroll.setClipToPadding(false);
+
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         root.setPadding(pad, pad, pad, pad);
-
-        // Android 15/16 enforce edge-to-edge for recent target SDKs. Respect both
-        // system bars and the display cutout so the header never sits under a
-        // centred punch-hole/front camera or another cutout.
+        root.setBackgroundColor(COLOR_BG);
         root.setOnApplyWindowInsetsListener((v, insets) -> {
             int left = insets.getSystemWindowInsetLeft();
             int top = insets.getSystemWindowInsetTop();
@@ -66,102 +84,210 @@ public final class MainActivity extends Activity {
             v.setPadding(pad + left, pad + top, pad + right, pad + bottom);
             return insets;
         });
-        scroll.addView(root);
+        scroll.addView(root, new ScrollView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         root.requestApplyInsets();
 
+        addHeader(root);
+        addServiceCard(root);
+        addGestureCard(root);
+        addProtectionCard(root);
+        addLanguageCard(root);
+        addPrivacyCard(root);
+        addFooter(root);
+        return scroll;
+    }
+
+    private void addHeader(LinearLayout root) {
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
         ImageView logo = new ImageView(this);
         logo.setImageResource(R.drawable.ic_logo_mark);
         logo.setContentDescription(getString(R.string.app_name));
         logo.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        LinearLayout.LayoutParams logoParams = new LinearLayout.LayoutParams(
-                Prefs.dp(this, 72), Prefs.dp(this, 72));
-        root.addView(logo, logoParams);
+        LinearLayout.LayoutParams logoParams = new LinearLayout.LayoutParams(Prefs.dp(this, 70), Prefs.dp(this, 70));
+        logoParams.rightMargin = Prefs.dp(this, 14);
+        row.addView(logo, logoParams);
 
-        TextView title = new TextView(this);
-        title.setText(R.string.app_name);
-        title.setTextSize(26);
-        title.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        root.addView(title);
+        LinearLayout textCol = new LinearLayout(this);
+        textCol.setOrientation(LinearLayout.VERTICAL);
+        textCol.setGravity(Gravity.CENTER_VERTICAL);
+        textCol.addView(text(getString(R.string.app_name), 29, COLOR_CYAN, true));
+        textCol.addView(text("v0.3.0", 13, COLOR_MUTED, false));
+        row.addView(textCol, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+        root.addView(row);
 
-        TextView intro = new TextView(this);
-        intro.setText(R.string.intro);
-        intro.setTextSize(16);
-        intro.setPadding(0, Prefs.dp(this, 8), 0, Prefs.dp(this, 16));
-        root.addView(intro);
+        TextView intro = text(getString(R.string.intro), 15, COLOR_TEXT, false);
+        intro.setLineSpacing(0f, 1.12f);
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        p.topMargin = Prefs.dp(this, 10);
+        p.bottomMargin = Prefs.dp(this, 14);
+        root.addView(intro, p);
+    }
 
-        serviceStatus = new TextView(this);
-        serviceStatus.setTextSize(17);
-        serviceStatus.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        root.addView(serviceStatus);
-
-        nativeInfo = new TextView(this);
-        nativeInfo.setTextSize(15);
-        nativeInfo.setPadding(0, Prefs.dp(this, 5), 0, Prefs.dp(this, 12));
-        root.addView(nativeInfo);
-
-        Button accessibility = new Button(this);
-        accessibility.setText(R.string.open_accessibility_settings);
+    private void addServiceCard(LinearLayout root) {
+        LinearLayout card = card();
+        LinearLayout top = new LinearLayout(this);
+        top.setOrientation(LinearLayout.HORIZONTAL);
+        top.setGravity(Gravity.CENTER_VERTICAL);
+        serviceStatus = text("", 18, COLOR_GREEN, true);
+        top.addView(serviceStatus, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+        top.addView(text("●", 18, COLOR_GREEN, true));
+        card.addView(top);
+        nativeInfo = text("", 14, COLOR_MUTED, false);
+        nativeInfo.setLineSpacing(0f, 1.1f);
+        LinearLayout.LayoutParams np = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        np.topMargin = Prefs.dp(this, 7);
+        np.bottomMargin = Prefs.dp(this, 12);
+        card.addView(nativeInfo, np);
+        Button accessibility = primaryButton(getString(R.string.open_accessibility_settings));
         accessibility.setOnClickListener(v -> startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)));
-        root.addView(accessibility);
+        card.addView(accessibility);
+        addCard(root, card);
+    }
 
-        addSection(root, getString(R.string.section_language));
-        TextView languageSummary = new TextView(this);
-        languageSummary.setText(R.string.language_summary);
-        languageSummary.setTextSize(14);
-        languageSummary.setPadding(0, 0, 0, Prefs.dp(this, 6));
-        root.addView(languageSummary);
+    private void addGestureCard(LinearLayout root) {
+        LinearLayout card = card();
+        addCardTitle(card, getString(R.string.section_area_gesture));
+        addSwitch(card, getString(R.string.left_side), Prefs.LEFT, Prefs.DEFAULT_LEFT);
+        addSwitch(card, getString(R.string.right_side), Prefs.RIGHT, Prefs.DEFAULT_RIGHT);
+        addDivider(card);
+        addSeek(card, getString(R.string.total_back_zone), getString(R.string.suffix_from_edge), Prefs.TARGET_WIDTH_DP, 16, 36, Prefs.DEFAULT_TARGET_WIDTH_DP);
+        addSeek(card, getString(R.string.swipe_distance), getString(R.string.suffix_horizontal_before_back), Prefs.TRIGGER_DISTANCE_DP, 16, 44, Prefs.DEFAULT_TRIGGER_DISTANCE_DP);
+        addCard(root, card);
+    }
 
-        Button language = new Button(this);
-        language.setText(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-                ? R.string.open_language_settings : R.string.open_system_language_settings);
+    private void addProtectionCard(LinearLayout root) {
+        LinearLayout card = card();
+        addCardTitle(card, getString(R.string.section_behavior));
+        addSeek(card, getString(R.string.exclude_top), getString(R.string.suffix_dp), Prefs.TOP_EXCLUDE_DP, 0, 80, Prefs.DEFAULT_TOP_EXCLUDE_DP);
+        addSeek(card, getString(R.string.exclude_bottom), getString(R.string.suffix_bottom_exclusion), Prefs.BOTTOM_EXCLUDE_DP, 40, 160, Prefs.DEFAULT_BOTTOM_EXCLUDE_DP);
+        addDivider(card);
+        addCheck(card, getString(R.string.haptic_back), Prefs.HAPTIC, Prefs.DEFAULT_HAPTIC);
+        addCheck(card, getString(R.string.debug_zones), Prefs.DEBUG, Prefs.DEFAULT_DEBUG);
+        addCard(root, card);
+    }
+
+    private void addLanguageCard(LinearLayout root) {
+        LinearLayout card = card();
+        addCardTitle(card, getString(R.string.section_language));
+        TextView languageSummary = text(getString(R.string.language_summary), 14, COLOR_MUTED, false);
+        languageSummary.setLineSpacing(0f, 1.1f);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.bottomMargin = Prefs.dp(this, 12);
+        card.addView(languageSummary, lp);
+        Button language = secondaryButton(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ? getString(R.string.open_language_settings) : getString(R.string.open_system_language_settings));
         language.setOnClickListener(v -> openLanguageSettings());
-        root.addView(language);
+        card.addView(language);
+        addCard(root, card);
+    }
 
-        addSection(root, getString(R.string.section_sides));
-        addSwitch(root, getString(R.string.left_side), Prefs.LEFT, Prefs.DEFAULT_LEFT);
-        addSwitch(root, getString(R.string.right_side), Prefs.RIGHT, Prefs.DEFAULT_RIGHT);
+    private void addPrivacyCard(LinearLayout root) {
+        LinearLayout card = card();
+        card.addView(text("✓", 18, COLOR_CYAN, true));
+        TextView privacy = text(getString(R.string.privacy_text), 13, COLOR_MUTED, false);
+        privacy.setLineSpacing(0f, 1.12f);
+        LinearLayout.LayoutParams pp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        pp.topMargin = Prefs.dp(this, 8);
+        card.addView(privacy, pp);
+        addCard(root, card);
+    }
 
-        addSection(root, getString(R.string.section_area_gesture));
-        addSeek(root, getString(R.string.total_back_zone), getString(R.string.suffix_from_edge),
-                Prefs.TARGET_WIDTH_DP, 16, 36, Prefs.DEFAULT_TARGET_WIDTH_DP);
-        addSeek(root, getString(R.string.swipe_distance), getString(R.string.suffix_horizontal_before_back),
-                Prefs.TRIGGER_DISTANCE_DP, 16, 44, Prefs.DEFAULT_TRIGGER_DISTANCE_DP);
-        addSeek(root, getString(R.string.exclude_top), getString(R.string.suffix_dp),
-                Prefs.TOP_EXCLUDE_DP, 0, 80, Prefs.DEFAULT_TOP_EXCLUDE_DP);
-        addSeek(root, getString(R.string.exclude_bottom), getString(R.string.suffix_bottom_exclusion),
-                Prefs.BOTTOM_EXCLUDE_DP, 40, 160, Prefs.DEFAULT_BOTTOM_EXCLUDE_DP);
+    private void addFooter(LinearLayout root) {
+        Button github = secondaryButton("GitHub · Michiel0912/magic-swipe");
+        github.setOnClickListener(v -> {
+            Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Michiel0912/magic-swipe"));
+            try { startActivity(browser); } catch (Throwable ignored) {}
+        });
+        LinearLayout.LayoutParams gp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        gp.topMargin = Prefs.dp(this, 2);
+        root.addView(github, gp);
 
-        addSection(root, getString(R.string.section_behavior));
-        addCheck(root, getString(R.string.haptic_back), Prefs.HAPTIC, Prefs.DEFAULT_HAPTIC);
-        addCheck(root, getString(R.string.debug_zones), Prefs.DEBUG, Prefs.DEFAULT_DEBUG);
-
-        Button reset = new Button(this);
-        reset.setText(R.string.restore_defaults);
+        Button reset = secondaryButton(getString(R.string.restore_defaults));
         reset.setOnClickListener(v -> {
-            prefs.edit()
-                    .putBoolean(Prefs.LEFT, Prefs.DEFAULT_LEFT)
-                    .putBoolean(Prefs.RIGHT, Prefs.DEFAULT_RIGHT)
+            prefs.edit().putBoolean(Prefs.LEFT, Prefs.DEFAULT_LEFT).putBoolean(Prefs.RIGHT, Prefs.DEFAULT_RIGHT)
                     .putInt(Prefs.TARGET_WIDTH_DP, Prefs.DEFAULT_TARGET_WIDTH_DP)
                     .putInt(Prefs.TRIGGER_DISTANCE_DP, Prefs.DEFAULT_TRIGGER_DISTANCE_DP)
                     .putInt(Prefs.TOP_EXCLUDE_DP, Prefs.DEFAULT_TOP_EXCLUDE_DP)
                     .putInt(Prefs.BOTTOM_EXCLUDE_DP, Prefs.DEFAULT_BOTTOM_EXCLUDE_DP)
-                    .putBoolean(Prefs.HAPTIC, Prefs.DEFAULT_HAPTIC)
-                    .putBoolean(Prefs.DEBUG, Prefs.DEFAULT_DEBUG)
-                    .apply();
+                    .putBoolean(Prefs.HAPTIC, Prefs.DEFAULT_HAPTIC).putBoolean(Prefs.DEBUG, Prefs.DEFAULT_DEBUG).apply();
             recreate();
         });
-        LinearLayout.LayoutParams rp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        rp.topMargin = Prefs.dp(this, 18);
+        LinearLayout.LayoutParams rp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        rp.topMargin = Prefs.dp(this, 10);
         root.addView(reset, rp);
 
-        TextView privacy = new TextView(this);
-        privacy.setText(R.string.privacy_text);
-        privacy.setTextSize(13);
-        privacy.setPadding(0, Prefs.dp(this, 18), 0, Prefs.dp(this, 24));
-        root.addView(privacy);
+        TextView footer = text("Magic Swipe · MIT", 12, COLOR_MUTED, false);
+        footer.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams fp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        fp.topMargin = Prefs.dp(this, 14);
+        fp.bottomMargin = Prefs.dp(this, 12);
+        root.addView(footer, fp);
+    }
 
-        return scroll;
+    private LinearLayout card() {
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        int p = Prefs.dp(this, 16);
+        card.setPadding(p, p, p, p);
+        card.setBackground(rounded(COLOR_CARD, 18, COLOR_BORDER, 1));
+        return card;
+    }
+
+    private void addCard(LinearLayout root, LinearLayout card) {
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        p.bottomMargin = Prefs.dp(this, 12);
+        root.addView(card, p);
+    }
+
+    private void addCardTitle(LinearLayout card, String title) {
+        TextView v = text(title, 18, COLOR_TEXT, true);
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        p.bottomMargin = Prefs.dp(this, 10);
+        card.addView(v, p);
+    }
+
+    private void addDivider(LinearLayout card) {
+        View divider = new View(this);
+        divider.setBackgroundColor(COLOR_BORDER);
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Prefs.dp(this, 1));
+        p.topMargin = Prefs.dp(this, 10);
+        p.bottomMargin = Prefs.dp(this, 12);
+        card.addView(divider, p);
+    }
+
+    private TextView text(String value, float sizeSp, int color, boolean bold) {
+        TextView v = new TextView(this);
+        v.setText(value);
+        v.setTextSize(sizeSp);
+        v.setTextColor(color);
+        if (bold) v.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+        return v;
+    }
+
+    private Button primaryButton(String label) {
+        Button b = new Button(this);
+        b.setText(label); b.setTextSize(14); b.setTextColor(COLOR_BG); b.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+        b.setAllCaps(false); b.setMinHeight(Prefs.dp(this, 48)); b.setBackground(rounded(COLOR_CYAN, 14, COLOR_CYAN, 0));
+        return b;
+    }
+
+    private Button secondaryButton(String label) {
+        Button b = new Button(this);
+        b.setText(label); b.setTextSize(14); b.setTextColor(COLOR_TEXT); b.setAllCaps(false);
+        b.setMinHeight(Prefs.dp(this, 48)); b.setBackground(rounded(COLOR_CARD_ALT, 14, COLOR_BORDER, 1));
+        return b;
+    }
+
+    private GradientDrawable rounded(int fill, int radiusDp, int strokeColor, int strokeDp) {
+        GradientDrawable g = new GradientDrawable();
+        g.setColor(fill); g.setCornerRadius(Prefs.dp(this, radiusDp));
+        if (strokeDp > 0) g.setStroke(Prefs.dp(this, strokeDp), strokeColor);
+        return g;
+    }
+
+    private ColorStateList accentStates(int checkedColor, int uncheckedColor) {
+        return new ColorStateList(new int[][] { new int[] { android.R.attr.state_checked }, new int[] {} }, new int[] { checkedColor, uncheckedColor });
     }
 
     private void openLanguageSettings() {
@@ -169,54 +295,39 @@ public final class MainActivity extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent = new Intent(Settings.ACTION_APP_LOCALE_SETTINGS);
             intent.setData(Uri.parse("package:" + getPackageName()));
-        } else {
-            intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
-        }
-        try {
-            startActivity(intent);
-        } catch (Throwable ignored) {
-            startActivity(new Intent(Settings.ACTION_SETTINGS));
-        }
-    }
-
-    private void addSection(LinearLayout root, String text) {
-        TextView v = new TextView(this);
-        v.setText(text);
-        v.setTextSize(19);
-        v.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        v.setPadding(0, Prefs.dp(this, 22), 0, Prefs.dp(this, 6));
-        root.addView(v);
+        } else intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+        try { startActivity(intent); } catch (Throwable ignored) { startActivity(new Intent(Settings.ACTION_SETTINGS)); }
     }
 
     private void addSwitch(LinearLayout root, String label, String key, boolean def) {
         Switch s = new Switch(this);
-        s.setText(label);
-        s.setTextSize(16);
-        s.setChecked(prefs.getBoolean(key, def));
+        s.setText(label); s.setTextSize(16); s.setTextColor(COLOR_TEXT); s.setChecked(prefs.getBoolean(key, def));
+        s.setPadding(0, Prefs.dp(this, 3), 0, Prefs.dp(this, 3));
+        s.setThumbTintList(accentStates(COLOR_CYAN, Color.rgb(110, 124, 145)));
+        s.setTrackTintList(accentStates(Color.rgb(20, 104, 126), Color.rgb(55, 69, 88)));
         s.setOnCheckedChangeListener((buttonView, isChecked) -> prefs.edit().putBoolean(key, isChecked).apply());
         root.addView(s);
     }
 
     private void addCheck(LinearLayout root, String label, String key, boolean def) {
         CheckBox c = new CheckBox(this);
-        c.setText(label);
-        c.setTextSize(16);
-        c.setChecked(prefs.getBoolean(key, def));
+        c.setText(label); c.setTextSize(15); c.setTextColor(COLOR_TEXT); c.setChecked(prefs.getBoolean(key, def));
+        c.setPadding(0, Prefs.dp(this, 3), 0, Prefs.dp(this, 3));
+        c.setButtonTintList(accentStates(COLOR_CYAN, Color.rgb(110, 124, 145)));
         c.setOnCheckedChangeListener((buttonView, isChecked) -> prefs.edit().putBoolean(key, isChecked).apply());
         root.addView(c);
     }
 
-    private void addSeek(LinearLayout root, String label, String suffix,
-                         String key, int min, int max, int def) {
-        TextView value = new TextView(this);
-        value.setTextSize(15);
+    private void addSeek(LinearLayout root, String label, String suffix, String key, int min, int max, int def) {
         int current = prefs.getInt(key, def);
-        value.setText(getString(R.string.seek_value_format, label, current, suffix));
+        TextView value = text(getString(R.string.seek_value_format, label, current, suffix), 14, COLOR_TEXT, false);
         root.addView(value);
-
         SeekBar seek = new SeekBar(this);
-        seek.setMax(max - min);
-        seek.setProgress(current - min);
+        seek.setMax(max - min); seek.setProgress(current - min);
+        seek.setProgressTintList(ColorStateList.valueOf(COLOR_CYAN));
+        seek.setProgressBackgroundTintList(ColorStateList.valueOf(Color.rgb(58, 72, 91)));
+        seek.setThumbTintList(ColorStateList.valueOf(COLOR_TEXT));
+        seek.setPadding(0, 0, 0, Prefs.dp(this, 8));
         seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 int v = min + progress;
@@ -232,20 +343,18 @@ public final class MainActivity extends Activity {
     private void refreshStatus() {
         boolean enabled = isServiceEnabled();
         serviceStatus.setText(enabled ? R.string.service_active : R.string.service_inactive);
+        serviceStatus.setTextColor(enabled ? COLOR_GREEN : COLOR_RED);
         int px = Prefs.detectNativeBackInsetPx(this);
         nativeInfo.setText(getString(R.string.native_zone_format, px, Prefs.pxToDp(this, px)));
     }
 
     private boolean isServiceEnabled() {
         AccessibilityManager am = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
-        List<AccessibilityServiceInfo> enabled = am.getEnabledAccessibilityServiceList(
-                AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
+        List<AccessibilityServiceInfo> enabled = am.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
         for (AccessibilityServiceInfo info : enabled) {
             if (info.getResolveInfo() != null && info.getResolveInfo().serviceInfo != null
                     && getPackageName().equals(info.getResolveInfo().serviceInfo.packageName)
-                    && EdgeBackAccessibilityService.class.getName().equals(info.getResolveInfo().serviceInfo.name)) {
-                return true;
-            }
+                    && EdgeBackAccessibilityService.class.getName().equals(info.getResolveInfo().serviceInfo.name)) return true;
         }
         return false;
     }

@@ -1,5 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Edge Back Extender logo">
-  <rect width="512" height="512" rx="112" fill="#111827"/>
-  <rect x="92" y="108" width="38" height="296" rx="19" fill="#22D3EE"/>
-  <path d="M327 138 207 256l120 118 36-36-83-82 83-82z" fill="#fff"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Magic Swipe logo">
+  <defs>
+    <linearGradient id="frame" x1="70" y1="60" x2="440" y2="450" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67E8F9"/>
+      <stop offset="0.55" stop-color="#22D3EE"/>
+      <stop offset="1" stop-color="#3B82F6"/>
+    </linearGradient>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientTransform="translate(256 208) rotate(90) scale(300)">
+      <stop stop-color="#102A40"/>
+      <stop offset="1" stop-color="#06101D"/>
+    </radialGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <rect x="45" y="45" width="422" height="422" rx="95" fill="none" stroke="url(#frame)" stroke-width="23"/>
+  <rect x="64" y="148" width="14" height="216" rx="7" fill="#22D3EE" filter="url(#glow)"/>
+  <rect x="434" y="148" width="14" height="216" rx="7" fill="#22D3EE" filter="url(#glow)"/>
+  <path d="M245 142 130 256l115 114 38-38-65-64h166v-25H218l65-64Z" fill="#fff"/>
+  <path d="m385 89 10 33 33 10-33 10-10 33-10-33-33-10 33-10Z" fill="#8B5CF6" filter="url(#glow)"/>
 </svg>

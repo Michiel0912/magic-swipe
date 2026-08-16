@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Magic Swipe</string>
+    <string name="service_name">Magic Swipe</string>
+    <string name="accessibility_description">Pinalalawak ang magagamit na panimulang bahagi ng system Back gesture gamit ang transparent na edge zones. Hindi binabasa ng serbisyo ang laman ng screen at hindi ito gumagamit ng network.</string>
+    <string name="intro">Nagdaragdag ng makitid at transparent na zone sa loob lamang ng kasalukuyang Back edge. Hindi binabago ang native Back zone ng phone.</string>
+    <string name="service_active">Serbisyo: AKTIBO</string>
+    <string name="service_inactive">Serbisyo: HINDI AKTIBO</string>
+    <string name="native_zone_format">Natukoy na native zone: %1$d px (%2$.1f dp). Nagsisimula ang extra zone sa loob lamang nito.</string>
+    <string name="open_accessibility_settings">Buksan ang accessibility settings</string>
+    <string name="section_language">Wika</string>
+    <string name="language_summary">Sinusunod ang system language bilang default. Sa Android 13 pataas, puwedeng pumili ng hiwalay na app language.</string>
+    <string name="open_language_settings">App language settings</string>
+    <string name="open_system_language_settings">Buksan ang system language settings</string>
+    <string name="section_sides">Mga gilid</string>
+    <string name="left_side">Kaliwang gilid</string>
+    <string name="right_side">Kanang gilid</string>
+    <string name="section_area_gesture">Area at gesture</string>
+    <string name="total_back_zone">Kabuuang Back zone</string>
+    <string name="suffix_from_edge">dp mula sa gilid ng screen</string>
+    <string name="swipe_distance">Layo ng Swipe</string>
+    <string name="suffix_horizontal_before_back">dp na pahalang na galaw bago ang Back</string>
+    <string name="exclude_top">Ibukod ang itaas</string>
+    <string name="suffix_dp">dp</string>
+    <string name="exclude_bottom">Ibukod ang ibaba</string>
+    <string name="suffix_bottom_exclusion">dp (pinoprotektahan ang Home gesture at sulok ng keyboard)</string>
+    <string name="section_behavior">Pag-uugali</string>
+    <string name="haptic_back">Haptic feedback sa Back</string>
+    <string name="debug_zones">Test mode: ipakita ang extra zones</string>
+    <string name="restore_defaults">Ibalik ang defaults</string>
+    <string name="privacy_text">Privacy: walang INTERNET permission, walang analytics, at walang access sa screen content. GLOBAL_ACTION_BACK lang ang ginagawa ng AccessibilityService pagkatapos ng Swipe sa extra edge zone.</string>
+    <string name="seek_value_format">%1$s: %2$d %3$s</string>
+</resources>

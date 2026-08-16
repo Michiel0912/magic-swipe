@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Magic Swipe</string><string name="service_name">Magic Swipe</string>
+<string name="accessibility_description">Erweitert den nutzbaren Startbereich der systemeigenen Zurück-Geste mit transparenten Randzonen. Der Dienst liest keine Bildschirminhalte und verwendet kein Netzwerk.</string>
+<string name="intro">Fügt direkt innerhalb des vorhandenen Zurück-Randes eine schmale transparente Zone hinzu. Die native Zurück-Zone des Telefons bleibt unverändert.</string>
+<string name="service_active">Dienst: AKTIV</string><string name="service_inactive">Dienst: NICHT AKTIV</string>
+<string name="native_zone_format">Erkannte native Zone: %1$d px (%2$.1f dp). Die zusätzliche Zone beginnt direkt innerhalb davon.</string>
+<string name="open_accessibility_settings">Bedienungshilfen öffnen</string><string name="section_language">Sprache</string>
+<string name="language_summary">Verwendet standardmäßig die Systemsprache. Ab Android 13 kann eine eigene App-Sprache gewählt werden.</string>
+<string name="open_language_settings">App-Sprache</string><string name="open_system_language_settings">Systemsprache öffnen</string>
+<string name="section_sides">Seiten</string><string name="left_side">Linke Seite</string><string name="right_side">Rechte Seite</string>
+<string name="section_area_gesture">Bereich und Geste</string><string name="total_back_zone">Gesamte Zurück-Zone</string>
+<string name="suffix_from_edge">dp vom Bildschirmrand</string><string name="swipe_distance">Wischdistanz</string>
+<string name="suffix_horizontal_before_back">dp horizontale Bewegung vor Zurück</string><string name="exclude_top">Oben ausschließen</string>
+<string name="suffix_dp">dp</string><string name="exclude_bottom">Unten ausschließen</string>
+<string name="suffix_bottom_exclusion">dp (schützt Home-Geste und Tastaturecke)</string><string name="section_behavior">Verhalten</string>
+<string name="haptic_back">Haptisches Feedback bei Zurück</string><string name="debug_zones">Testmodus: zusätzliche Zonen anzeigen</string>
+<string name="restore_defaults">Standardwerte wiederherstellen</string>
+<string name="privacy_text">Datenschutz: keine INTERNET-Berechtigung, keine Analysen und kein Zugriff auf Bildschirminhalte. Der Bedienungshilfedienst führt nur GLOBAL_ACTION_BACK nach einer Wischgeste in der zusätzlichen Randzone aus.</string>
+<string name="seek_value_format">%1$s: %2$d %3$s</string>
+</resources>

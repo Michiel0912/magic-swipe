@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Edge Back Extender</string>
-    <string name="service_name">Edge Back Extender</string>
+    <string name="app_name">Magic Swipe</string>
+    <string name="service_name">Magic Swipe</string>
     <string name="accessibility_description">透過透明邊緣區域擴大系統「返回」手勢可用的起始範圍。服務不會讀取螢幕內容，也不會使用網路。</string>
     <string name="intro">在現有「返回」手勢邊緣內側增加一條狹窄的透明區域。手機原生「返回」區域保持不變。</string>
     <string name="service_active">服務：已啟用</string>
