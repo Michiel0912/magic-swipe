@@ -5,11 +5,13 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 
@@ -20,6 +22,8 @@ public final class EdgeBackAccessibilityService extends AccessibilityService
     private SharedPreferences prefs;
     private EdgeTouchView leftView;
     private EdgeTouchView rightView;
+    private int imeBottomInsetPx;
+    private boolean imeRebuildPosted;
 
     @Override
     protected void onServiceConnected() {
@@ -43,6 +47,7 @@ public final class EdgeBackAccessibilityService extends AccessibilityService
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        imeBottomInsetPx = 0;
         rebuildOverlays();
     }
 
@@ -70,21 +75,55 @@ public final class EdgeBackAccessibilityService extends AccessibilityService
 
         int screenHeight = getResources().getDisplayMetrics().heightPixels;
         int topPx = Prefs.dp(this, prefs.getInt(Prefs.TOP_EXCLUDE_DP, Prefs.DEFAULT_TOP_EXCLUDE_DP));
-        int bottomPx = Prefs.dp(this,
+        int userBottomPx = Prefs.dp(this,
                 prefs.getInt(Prefs.BOTTOM_EXCLUDE_DP, Prefs.DEFAULT_BOTTOM_EXCLUDE_DP));
-        int activeHeight = Math.max(Prefs.dp(this, 120), screenHeight - topPx - bottomPx);
+
+        // Never let the touch overlay cover the visible software keyboard. This is more
+        // reliable than relying only on window Z-order because accessibility overlays may
+        // still receive edge touches differently across OEM window managers.
+        int effectiveBottomPx = Math.max(userBottomPx, imeBottomInsetPx);
+        int activeHeight = Math.max(Prefs.dp(this, 120), screenHeight - topPx - effectiveBottomPx);
 
         if (prefs.getBoolean(Prefs.LEFT, Prefs.DEFAULT_LEFT)) {
             leftView = new EdgeTouchView(true);
             windowManager.addView(leftView,
                     makeLayoutParams(true, nativeInsetPx, extensionWidthPx, topPx, activeHeight));
+            installImeInsetTracking(leftView);
         }
 
         if (prefs.getBoolean(Prefs.RIGHT, Prefs.DEFAULT_RIGHT)) {
             rightView = new EdgeTouchView(false);
             windowManager.addView(rightView,
                     makeLayoutParams(false, nativeInsetPx, extensionWidthPx, topPx, activeHeight));
+            installImeInsetTracking(rightView);
         }
+    }
+
+    private void installImeInsetTracking(View view) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) return;
+
+        view.setOnApplyWindowInsetsListener((v, insets) -> {
+            int newImeBottom = 0;
+            try {
+                if (insets.isVisible(WindowInsets.Type.ime())) {
+                    newImeBottom = insets.getInsets(WindowInsets.Type.ime()).bottom;
+                }
+            } catch (Throwable ignored) {
+            }
+
+            if (newImeBottom != imeBottomInsetPx) {
+                imeBottomInsetPx = newImeBottom;
+                if (!imeRebuildPosted) {
+                    imeRebuildPosted = true;
+                    v.post(() -> {
+                        imeRebuildPosted = false;
+                        rebuildOverlays();
+                    });
+                }
+            }
+            return insets;
+        });
+        view.requestApplyInsets();
     }
 
     private WindowManager.LayoutParams makeLayoutParams(boolean left, int nativeInsetPx,
