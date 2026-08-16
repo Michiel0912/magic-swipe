@@ -25,7 +25,7 @@
 - Added an adaptive app icon and in-app logo.
 - Added GitHub-ready README files, license, issue templates, changelog, and `.gitignore`.
 - Added a build-only workflow without ADB.
-- Build script can reuse an existing local signing key from older Edge Back Extender folders so upgrades can keep the same app signature.
+- Build script can reuse an existing local signing key from older pre-v0.3 project folders so upgrades can keep the same app signature.
 
 ## 0.1.2
 
