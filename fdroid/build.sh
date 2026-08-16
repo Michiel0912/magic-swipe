@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BUILD="$ROOT/fdroid-build"
-OUT="$ROOT/MagicSwipe-v0.3.0-unsigned.apk"
+OUT="$ROOT/MagicSwipe-v0.3.1-unsigned.apk"
 SDK="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
 
 if [[ -z "$SDK" || ! -d "$SDK" ]]; then
@@ -43,8 +43,8 @@ mkdir -p "$BUILD/gen" "$BUILD/classes" "$BUILD/dex"
   --java "$BUILD/gen" \
   --min-sdk-version 26 \
   --target-sdk-version 36 \
-  --version-code 6 \
-  --version-name 0.3.0 \
+  --version-code 7 \
+  --version-name 0.3.1 \
   "$BUILD/res.zip"
 
 mapfile -t SOURCES < <(find "$ROOT/app/src/main/java" "$BUILD/gen" -type f -name '*.java' -print | sort)
