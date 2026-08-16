@@ -1,0 +1,20 @@
+Magic Swipe makes Android's Back gesture easier to start when a protective case, raised side lip, or curved display makes the native edge difficult to reach.
+
+It adds narrow transparent touch zones just inside the existing Back-gesture edges. The native Android gesture zone remains untouched; Magic Swipe only covers the extra area selected by the user.
+
+Features:
+• Left and right sides can be enabled independently
+• Adjustable total Back-zone width and swipe distance
+• Adjustable top and bottom exclusions
+• Optional haptic feedback
+• Visual test mode for the extra zones
+• Automatic recovery after reboot once the AccessibilityService is enabled
+• Per-app language selection on Android 13+
+• No root access
+• No Internet permission
+• No analytics or trackers
+• No screen-content retrieval
+
+Magic Swipe uses Android's AccessibilityService only to detect swipes inside its own narrow accessibility overlay and trigger the system Back action.
+
+Compatibility is currently confirmed only on HONOR Magic8 Pro with MagicOS 10 / Android 16. Other HONOR and Android devices are expected or experimental until confirmed by real-device reports.
