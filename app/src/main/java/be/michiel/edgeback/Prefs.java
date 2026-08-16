@@ -14,12 +14,15 @@ final class Prefs {
     static final String BOTTOM_EXCLUDE_DP = "bottom_exclude_dp";
     static final String HAPTIC = "haptic";
     static final String DEBUG = "debug_zones";
+    private static final String PREFS_MIGRATION_VERSION = "prefs_migration_version";
+    private static final int CURRENT_PREFS_MIGRATION_VERSION = 1;
+    private static final int LEGACY_DEFAULT_TOP_EXCLUDE_DP = 28;
 
     static final boolean DEFAULT_LEFT = true;
     static final boolean DEFAULT_RIGHT = true;
     static final int DEFAULT_TARGET_WIDTH_DP = 24;
     static final int DEFAULT_TRIGGER_DISTANCE_DP = 26;
-    static final int DEFAULT_TOP_EXCLUDE_DP = 28;
+    static final int DEFAULT_TOP_EXCLUDE_DP = 80;
     static final int DEFAULT_BOTTOM_EXCLUDE_DP = 88;
     static final boolean DEFAULT_HAPTIC = true;
     static final boolean DEFAULT_DEBUG = false;
@@ -27,7 +30,26 @@ final class Prefs {
     private Prefs() {}
 
     static SharedPreferences get(Context context) {
-        return context.getSharedPreferences(FILE, Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences(FILE, Context.MODE_PRIVATE);
+        migrateIfNeeded(prefs);
+        return prefs;
+    }
+
+    private static void migrateIfNeeded(SharedPreferences prefs) {
+        int version = prefs.getInt(PREFS_MIGRATION_VERSION, 0);
+        if (version >= CURRENT_PREFS_MIGRATION_VERSION) return;
+
+        SharedPreferences.Editor editor = prefs.edit();
+
+        // v0.3.0 used a 28dp default top exclusion, which can overlap toolbar actions
+        // near the upper screen corners. Preserve custom values, but migrate that legacy
+        // default to the validated 80dp safe area used by v0.3.1.
+        int top = prefs.getInt(TOP_EXCLUDE_DP, LEGACY_DEFAULT_TOP_EXCLUDE_DP);
+        if (!prefs.contains(TOP_EXCLUDE_DP) || top == LEGACY_DEFAULT_TOP_EXCLUDE_DP) {
+            editor.putInt(TOP_EXCLUDE_DP, DEFAULT_TOP_EXCLUDE_DP);
+        }
+
+        editor.putInt(PREFS_MIGRATION_VERSION, CURRENT_PREFS_MIGRATION_VERSION).apply();
     }
 
     static int dp(Context context, float dp) {
