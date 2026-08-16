@@ -115,6 +115,14 @@ Magic Swipe is intentionally minimal:
 - No root
 - No system APK or framework modification
 
+## F-Droid status
+
+Magic Swipe is being prepared for submission to the official F-Droid repository. The repository now contains upstream Fastlane/Triple-T metadata, a Linux source-build helper, and a draft `fdroiddata` build recipe.
+
+**Magic Swipe is not yet available from the official F-Droid repository.** Real screenshots, release validation, the final release tag, and fdroiddata CI still need to be completed before an inclusion request is opened.
+
+See [FDROID_SUBMISSION.md](FDROID_SUBMISSION.md) for the current checklist and [fdroid/](fdroid/) for the packaging files.
+
 ## Market and compatibility sources
 
 The compatibility rationale is based on the standard Android accessibility APIs used by the app. The regional language coverage is informed by current HONOR shipment trends, including Latin America as a major overseas volume contributor, strong growth in the Middle East & Africa, a top-five position in Europe in 2025, and expansion in South-Eastern Asia.
