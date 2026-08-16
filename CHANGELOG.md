@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.1 - Unreleased
+## 0.3.1 - 2026-08-16
 
 - Prevent Magic Swipe's transparent edge overlays from covering the visible software keyboard on Android 11+.
 - Dynamically read the IME bottom inset and shorten the gesture overlays above the keyboard while it is visible.
