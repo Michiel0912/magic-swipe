@@ -52,7 +52,7 @@ Current translations include:
 
 - **Global / Europe:** English, Dutch, German, French, Spanish, Italian, Portuguese, Polish, Romanian, Czech, Hungarian, Russian, Ukrainian, Turkish
 - **Latin America:** Spanish, Brazilian Portuguese
-- **Middle East & Africa:** Arabic, Persian, Turkish, English, French, Swahili
+- **Middle East & Africa:** Arabic, Persian, Hebrew, Turkish, English, French, Swahili
 - **South Asia:** English, Hindi, Bengali, Marathi, Telugu, Urdu
 - **South-Eastern Asia:** Indonesian, Malay, Thai, Vietnamese, Filipino
 - **Greater China:** Simplified Chinese, Traditional Chinese
