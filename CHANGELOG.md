@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.1 - Unreleased
+
+- Prevent Magic Swipe's transparent edge overlays from covering the visible software keyboard on Android 11+.
+- Dynamically read the IME bottom inset and shorten the gesture overlays above the keyboard while it is visible.
+- Keep the user's configured bottom exclusion when it is larger than the keyboard inset.
+- Confirmed on HONOR Magic8 Pro / MagicOS 10 / Android 16: edge keyboard keys remain immediately responsive while Back swipes continue to work above the keyboard and after it closes.
+
 ## 0.3.0 - 2026-08-16
 
 - Fully rebranded the app as **Magic Swipe** while keeping the existing Android package ID and AccessibilityService component for upgrade compatibility.
