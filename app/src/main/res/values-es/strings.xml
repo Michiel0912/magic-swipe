@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Edge Back Extender</string>
+    <string name="service_name">Edge Back Extender</string>
+    <string name="accessibility_description">Amplía el área útil de inicio del gesto Atrás del sistema mediante zonas transparentes en los bordes. El servicio no lee el contenido de la pantalla ni usa la red.</string>
+    <string name="intro">Añade una estrecha zona transparente justo dentro del borde existente para Atrás. La zona nativa del teléfono permanece intacta.</string>
+    <string name="service_active">Servicio: ACTIVO</string>
+    <string name="service_inactive">Servicio: INACTIVO</string>
+    <string name="native_zone_format">Zona nativa detectada: %1$d px (%2$.1f dp). La zona adicional empieza justo dentro.</string>
+    <string name="open_accessibility_settings">Abrir ajustes de accesibilidad</string>
+    <string name="section_language">Idioma</string>
+    <string name="language_summary">De forma predeterminada sigue el idioma del sistema. En Android 13 o posterior puedes elegir un idioma distinto para la app.</string>
+    <string name="open_language_settings">Idioma de la aplicación</string>
+    <string name="open_system_language_settings">Abrir ajustes de idioma del sistema</string>
+    <string name="section_sides">Lados</string>
+    <string name="left_side">Lado izquierdo</string>
+    <string name="right_side">Lado derecho</string>
+    <string name="section_area_gesture">Área y gesto</string>
+    <string name="total_back_zone">Zona total de Atrás</string>
+    <string name="suffix_from_edge">dp desde el borde de la pantalla</string>
+    <string name="swipe_distance">Distancia de deslizamiento</string>
+    <string name="suffix_horizontal_before_back">dp de movimiento horizontal antes de Atrás</string>
+    <string name="exclude_top">Excluir parte superior</string>
+    <string name="suffix_dp">dp</string>
+    <string name="exclude_bottom">Excluir parte inferior</string>
+    <string name="suffix_bottom_exclusion">dp (protege el gesto Inicio y la esquina del teclado)</string>
+    <string name="section_behavior">Comportamiento</string>
+    <string name="haptic_back">Vibración al activar Atrás</string>
+    <string name="debug_zones">Modo de prueba: mostrar las zonas adicionales</string>
+    <string name="restore_defaults">Restaurar valores predeterminados</string>
+    <string name="privacy_text">Privacidad: sin permiso INTERNET, sin analíticas y sin acceso al contenido de la pantalla. El servicio de accesibilidad solo ejecuta GLOBAL_ACTION_BACK después de un deslizamiento en la zona adicional del borde.</string>
+    <string name="seek_value_format">%1$s: %2$d %3$s</string>
+</resources>

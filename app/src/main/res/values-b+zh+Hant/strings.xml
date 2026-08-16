@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Edge Back Extender</string>
+    <string name="service_name">Edge Back Extender</string>
+    <string name="accessibility_description">透過透明邊緣區域擴大系統「返回」手勢可用的起始範圍。服務不會讀取螢幕內容，也不會使用網路。</string>
+    <string name="intro">在現有「返回」手勢邊緣內側增加一條狹窄的透明區域。手機原生「返回」區域保持不變。</string>
+    <string name="service_active">服務：已啟用</string>
+    <string name="service_inactive">服務：未啟用</string>
+    <string name="native_zone_format">偵測到原生區域：%1$d px（%2$.1f dp）。擴充區域從其內側開始。</string>
+    <string name="open_accessibility_settings">開啟無障礙設定</string>
+    <string name="section_language">語言</string>
+    <string name="language_summary">預設跟隨系統語言。在 Android 13 及更新版本中，可個別選擇應用程式語言。</string>
+    <string name="open_language_settings">應用程式語言設定</string>
+    <string name="open_system_language_settings">開啟系統語言設定</string>
+    <string name="section_sides">側邊</string>
+    <string name="left_side">左側</string>
+    <string name="right_side">右側</string>
+    <string name="section_area_gesture">區域與手勢</string>
+    <string name="total_back_zone">「返回」總區域</string>
+    <string name="suffix_from_edge">dp（從螢幕邊緣起）</string>
+    <string name="swipe_distance">滑動距離</string>
+    <string name="suffix_horizontal_before_back">dp（觸發「返回」前的水平移動）</string>
+    <string name="exclude_top">頂部排除</string>
+    <string name="suffix_dp">dp</string>
+    <string name="exclude_bottom">底部排除</string>
+    <string name="suffix_bottom_exclusion">dp（保護主畫面手勢與鍵盤角落）</string>
+    <string name="section_behavior">行為</string>
+    <string name="haptic_back">觸發「返回」時震動</string>
+    <string name="debug_zones">測試模式：顯示擴充區域</string>
+    <string name="restore_defaults">恢復預設設定</string>
+    <string name="privacy_text">隱私：無 INTERNET 權限、無分析統計、無螢幕內容存取。無障礙服務只會在擴充邊緣區域偵測到滑動後執行 GLOBAL_ACTION_BACK。</string>
+    <string name="seek_value_format">%1$s：%2$d %3$s</string>
+</resources>

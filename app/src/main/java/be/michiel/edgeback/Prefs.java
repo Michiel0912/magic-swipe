@@ -1,0 +1,53 @@
+package be.michiel.edgeback;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+
+final class Prefs {
+    static final String FILE = "edge_back_prefs";
+    static final String LEFT = "left_enabled";
+    static final String RIGHT = "right_enabled";
+    static final String TARGET_WIDTH_DP = "target_width_dp";
+    static final String TRIGGER_DISTANCE_DP = "trigger_distance_dp";
+    static final String TOP_EXCLUDE_DP = "top_exclude_dp";
+    static final String BOTTOM_EXCLUDE_DP = "bottom_exclude_dp";
+    static final String HAPTIC = "haptic";
+    static final String DEBUG = "debug_zones";
+
+    static final boolean DEFAULT_LEFT = true;
+    static final boolean DEFAULT_RIGHT = true;
+    static final int DEFAULT_TARGET_WIDTH_DP = 24;
+    static final int DEFAULT_TRIGGER_DISTANCE_DP = 26;
+    static final int DEFAULT_TOP_EXCLUDE_DP = 28;
+    static final int DEFAULT_BOTTOM_EXCLUDE_DP = 88;
+    static final boolean DEFAULT_HAPTIC = true;
+    static final boolean DEFAULT_DEBUG = false;
+
+    private Prefs() {}
+
+    static SharedPreferences get(Context context) {
+        return context.getSharedPreferences(FILE, Context.MODE_PRIVATE);
+    }
+
+    static int dp(Context context, float dp) {
+        return Math.round(dp * context.getResources().getDisplayMetrics().density);
+    }
+
+    static int detectNativeBackInsetPx(Context context) {
+        try {
+            Resources system = Resources.getSystem();
+            int id = system.getIdentifier("gesture_nav_back_window_width", "dimen", "android");
+            if (id != 0) {
+                int value = system.getDimensionPixelSize(id);
+                if (value > 0) return value;
+            }
+        } catch (Throwable ignored) {
+        }
+        return dp(context, 15);
+    }
+
+    static float pxToDp(Context context, int px) {
+        return px / context.getResources().getDisplayMetrics().density;
+    }
+}

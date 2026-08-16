@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Edge Back Extender</string>
+    <string name="service_name">Edge Back Extender</string>
+    <string name="accessibility_description">Aumenta a área útil de início do gesto Voltar do sistema através de zonas transparentes nas margens. O serviço não lê o conteúdo do ecrã e não utiliza a rede.</string>
+    <string name="intro">Adiciona uma faixa transparente estreita imediatamente dentro da margem existente do gesto Voltar. A zona nativa do telefone permanece intacta.</string>
+    <string name="service_active">Serviço: ATIVO</string>
+    <string name="service_inactive">Serviço: INATIVO</string>
+    <string name="native_zone_format">Zona nativa detetada: %1$d px (%2$.1f dp). A zona adicional começa imediatamente no interior.</string>
+    <string name="open_accessibility_settings">Abrir definições de acessibilidade</string>
+    <string name="section_language">Idioma</string>
+    <string name="language_summary">Por predefinição, segue o idioma do sistema. No Android 13 ou posterior pode escolher um idioma separado para a aplicação.</string>
+    <string name="open_language_settings">Idioma da aplicação</string>
+    <string name="open_system_language_settings">Abrir definições de idioma do sistema</string>
+    <string name="section_sides">Lados</string>
+    <string name="left_side">Lado esquerdo</string>
+    <string name="right_side">Lado direito</string>
+    <string name="section_area_gesture">Área e gesto</string>
+    <string name="total_back_zone">Zona total de Voltar</string>
+    <string name="suffix_from_edge">dp a partir da margem do ecrã</string>
+    <string name="swipe_distance">Distância do deslize</string>
+    <string name="suffix_horizontal_before_back">dp de movimento horizontal antes de Voltar</string>
+    <string name="exclude_top">Excluir parte superior</string>
+    <string name="suffix_dp">dp</string>
+    <string name="exclude_bottom">Excluir parte inferior</string>
+    <string name="suffix_bottom_exclusion">dp (protege o gesto Início e o canto do teclado)</string>
+    <string name="section_behavior">Comportamento</string>
+    <string name="haptic_back">Toque háptico ao Voltar</string>
+    <string name="debug_zones">Modo de teste: mostrar as zonas adicionais</string>
+    <string name="restore_defaults">Repor predefinições</string>
+    <string name="privacy_text">Privacidade: sem permissão INTERNET, sem análises e sem acesso ao conteúdo do ecrã. O serviço de acessibilidade apenas executa GLOBAL_ACTION_BACK após um deslize na zona adicional da margem.</string>
+    <string name="seek_value_format">%1$s: %2$d %3$s</string>
+</resources>

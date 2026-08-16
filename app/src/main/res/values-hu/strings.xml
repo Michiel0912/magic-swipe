@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Edge Back Extender</string>
+    <string name="service_name">Edge Back Extender</string>
+    <string name="accessibility_description">Átlátszó szélső zónákkal kibővíti a rendszer Vissza gesztusának használható kezdőterületét. A szolgáltatás nem olvassa a képernyő tartalmát és nem használ hálózatot.</string>
+    <string name="intro">Egy keskeny, átlátszó zónát ad a meglévő Vissza-szél belső oldalához. A telefon natív Vissza-zónája változatlan marad.</string>
+    <string name="service_active">Szolgáltatás: AKTÍV</string>
+    <string name="service_inactive">Szolgáltatás: NEM AKTÍV</string>
+    <string name="native_zone_format">Észlelt natív zóna: %1$d px (%2$.1f dp). A kiegészítő zóna közvetlenül ezen belül kezdődik.</string>
+    <string name="open_accessibility_settings">Kisegítő lehetőségek megnyitása</string>
+    <string name="section_language">Nyelv</string>
+    <string name="language_summary">Alapértelmezés szerint a rendszer nyelvét követi. Android 13 vagy újabb rendszeren külön alkalmazásnyelv választható.</string>
+    <string name="open_language_settings">Alkalmazás nyelve</string>
+    <string name="open_system_language_settings">Rendszernyelv beállításainak megnyitása</string>
+    <string name="section_sides">Oldalak</string>
+    <string name="left_side">Bal oldal</string>
+    <string name="right_side">Jobb oldal</string>
+    <string name="section_area_gesture">Terület és gesztus</string>
+    <string name="total_back_zone">Teljes Vissza-zóna</string>
+    <string name="suffix_from_edge">dp a képernyő szélétől</string>
+    <string name="swipe_distance">Húzás távolsága</string>
+    <string name="suffix_horizontal_before_back">dp vízszintes mozgás a Vissza előtt</string>
+    <string name="exclude_top">Felső rész kihagyása</string>
+    <string name="suffix_dp">dp</string>
+    <string name="exclude_bottom">Alsó rész kihagyása</string>
+    <string name="suffix_bottom_exclusion">dp (védi a Kezdőképernyő gesztust és a billentyűzet sarkát)</string>
+    <string name="section_behavior">Működés</string>
+    <string name="haptic_back">Haptikus jelzés Vissza műveletnél</string>
+    <string name="debug_zones">Tesztmód: kiegészítő zónák megjelenítése</string>
+    <string name="restore_defaults">Alapértékek visszaállítása</string>
+    <string name="privacy_text">Adatvédelem: nincs INTERNET-engedély, analitika vagy képernyőtartalom-hozzáférés. A kisegítő szolgáltatás kizárólag GLOBAL_ACTION_BACK műveletet hajt végre a kiegészítő szélső zónában végzett húzás után.</string>
+    <string name="seek_value_format">%1$s: %2$d %3$s</string>
+</resources>

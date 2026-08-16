@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Edge Back Extender</string>
+    <string name="service_name">Edge Back Extender</string>
+    <string name="accessibility_description">Extends the usable start area for the system Back gesture using transparent edge zones. The service does not read screen content and does not use the network.</string>
+    <string name="intro">Adds a narrow transparent zone just inside the existing Back edge. The phone\'s native Back zone remains untouched.</string>
+    <string name="service_active">Service: ACTIVE</string>
+    <string name="service_inactive">Service: NOT ACTIVE</string>
+    <string name="native_zone_format">Detected native zone: %1$d px (%2$.1f dp). The extra zone starts just inside it.</string>
+    <string name="open_accessibility_settings">Open accessibility settings</string>
+    <string name="section_language">Language</string>
+    <string name="language_summary">Follows the system language by default. On Android 13 and later you can choose a separate app language.</string>
+    <string name="open_language_settings">App language settings</string>
+    <string name="open_system_language_settings">Open system language settings</string>
+    <string name="section_sides">Sides</string>
+    <string name="left_side">Left side</string>
+    <string name="right_side">Right side</string>
+    <string name="section_area_gesture">Area and gesture</string>
+    <string name="total_back_zone">Total Back zone</string>
+    <string name="suffix_from_edge">dp from the screen edge</string>
+    <string name="swipe_distance">Swipe distance</string>
+    <string name="suffix_horizontal_before_back">dp horizontal movement before Back</string>
+    <string name="exclude_top">Exclude top</string>
+    <string name="suffix_dp">dp</string>
+    <string name="exclude_bottom">Exclude bottom</string>
+    <string name="suffix_bottom_exclusion">dp (protects the Home gesture and keyboard corner)</string>
+    <string name="section_behavior">Behavior</string>
+    <string name="haptic_back">Haptic tap on Back</string>
+    <string name="debug_zones">Test mode: show the extra zones</string>
+    <string name="restore_defaults">Restore defaults</string>
+    <string name="privacy_text">Privacy: no INTERNET permission, no analytics, and no screen-content access. The AccessibilityService only performs GLOBAL_ACTION_BACK after a swipe in the extra edge zone.</string>
+    <string name="seek_value_format">%1$s: %2$d %3$s</string>
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Edge Back Extender</string>
+    <string name="service_name">Edge Back Extender</string>
+    <string name="accessibility_description">Estende l\'area utile di avvio del gesto Indietro di sistema tramite zone trasparenti sui bordi. Il servizio non legge il contenuto dello schermo e non usa la rete.</string>
+    <string name="intro">Aggiunge una sottile zona trasparente appena all\'interno del bordo Indietro esistente. La zona nativa del telefono resta invariata.</string>
+    <string name="service_active">Servizio: ATTIVO</string>
+    <string name="service_inactive">Servizio: NON ATTIVO</string>
+    <string name="native_zone_format">Zona nativa rilevata: %1$d px (%2$.1f dp). La zona aggiuntiva inizia subito all\'interno.</string>
+    <string name="open_accessibility_settings">Apri impostazioni di accessibilità</string>
+    <string name="section_language">Lingua</string>
+    <string name="language_summary">Per impostazione predefinita segue la lingua di sistema. Da Android 13 puoi scegliere una lingua separata per l\'app.</string>
+    <string name="open_language_settings">Lingua dell\'app</string>
+    <string name="open_system_language_settings">Apri impostazioni lingua di sistema</string>
+    <string name="section_sides">Lati</string>
+    <string name="left_side">Lato sinistro</string>
+    <string name="right_side">Lato destro</string>
+    <string name="section_area_gesture">Area e gesto</string>
+    <string name="total_back_zone">Zona Indietro totale</string>
+    <string name="suffix_from_edge">dp dal bordo dello schermo</string>
+    <string name="swipe_distance">Distanza di scorrimento</string>
+    <string name="suffix_horizontal_before_back">dp di movimento orizzontale prima di Indietro</string>
+    <string name="exclude_top">Escludi parte superiore</string>
+    <string name="suffix_dp">dp</string>
+    <string name="exclude_bottom">Escludi parte inferiore</string>
+    <string name="suffix_bottom_exclusion">dp (protegge il gesto Home e l\'angolo della tastiera)</string>
+    <string name="section_behavior">Comportamento</string>
+    <string name="haptic_back">Feedback aptico su Indietro</string>
+    <string name="debug_zones">Modalità test: mostra le zone aggiuntive</string>
+    <string name="restore_defaults">Ripristina impostazioni predefinite</string>
+    <string name="privacy_text">Privacy: nessun permesso INTERNET, nessuna analisi e nessun accesso al contenuto dello schermo. Il servizio di accessibilità esegue solo GLOBAL_ACTION_BACK dopo uno scorrimento nella zona aggiuntiva del bordo.</string>
+    <string name="seek_value_format">%1$s: %2$d %3$s</string>
+</resources>

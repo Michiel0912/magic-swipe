@@ -1,0 +1,19 @@
+# Build output
+build/
+*.apk
+
+# Local SDK / IDE
+.android-sdk/
+.idea/
+.gradle/
+local.properties
+*.iml
+
+# Signing keys - never commit private keys
+*.keystore
+*.jks
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
