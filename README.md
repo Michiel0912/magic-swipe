@@ -10,6 +10,32 @@ Magic Swipe adds narrow, transparent touch bands just inside Android's native Ba
 
 It does **not** replace Android's native gesture area. Magic Swipe only fills the extra space between the detected native Back edge and the total width selected by the user.
 
+## Download
+
+The first public release, **Magic Swipe v0.3.0**, is available from GitHub Releases.
+
+**[Download MagicSwipe-v0.3.0.apk](https://github.com/Michiel0912/magic-swipe/releases/download/v0.3.0/MagicSwipe-v0.3.0.apk)**
+
+[View the v0.3.0 release notes](https://github.com/Michiel0912/magic-swipe/releases/tag/v0.3.0) · [Download SHA-256 checksum](https://github.com/Michiel0912/magic-swipe/releases/download/v0.3.0/MagicSwipe-v0.3.0-SHA256.txt)
+
+SHA-256:
+
+```text
+49aab7a9732f58d57d69cfc9775b46e2e1c972488c6dd8bb2271aa29ed2cef34
+```
+
+The APK is signed with the definitive Magic Swipe release signing identity. Future direct GitHub APK releases are intended to use the same signing identity so they can update an existing Magic Swipe installation normally.
+
+### Install
+
+1. Download the APK on your Android device.
+2. Allow installation from the browser or file manager if Android asks for permission.
+3. Install Magic Swipe.
+4. Open the app and enable **Magic Swipe** under Android Accessibility settings.
+5. Adjust the left/right edge zones and swipe distance if desired.
+
+Magic Swipe does not require root and has no Internet permission.
+
 ## Compatibility
 
 > **Important:** Magic Swipe has currently been tested only on an **HONOR Magic8 Pro running MagicOS 10 / Android 16**. All other compatibility statements below are expectations based on the Android APIs used by the app, not confirmed device testing.
@@ -101,7 +127,9 @@ MagicSwipe-v0.3.0.apk
 
 The Android package ID remains `be.michiel.edgeback` and the AccessibilityService component remains unchanged. Those internal legacy identifiers are intentionally retained so installations from pre-v0.3 builds can upgrade to Magic Swipe instead of becoming a second app.
 
-The local build uses the legacy signing-key filename `edgeback-local.keystore` for upgrade compatibility. Keep that signing key safe if you distribute builds that must upgrade over one another.
+Release builds use the definitive Magic Swipe signing identity established before the first public v0.3.0 release. The private signing keystore must remain private and must never be committed to the repository.
+
+The local build continues to use the legacy filename `edgeback-local.keystore` internally. `signing_key_sync.ps1` can preserve a private release-key backup under the current user's profile so a newly downloaded project does not silently create a different update-incompatible key.
 
 ## Privacy
 
@@ -117,9 +145,9 @@ Magic Swipe is intentionally minimal:
 
 ## F-Droid status
 
-Magic Swipe is being prepared for submission to the official F-Droid repository. The repository now contains upstream Fastlane/Triple-T metadata, a Linux source-build helper, and a draft `fdroiddata` build recipe.
+Magic Swipe is being prepared for submission to the official F-Droid repository. The repository contains upstream Fastlane/Triple-T text metadata, a Linux source-build helper, and a draft `fdroiddata` build recipe.
 
-**Magic Swipe is not yet available from the official F-Droid repository.** Real screenshots, release validation, the final release tag, and fdroiddata CI still need to be completed before an inclusion request is opened.
+The v0.3.0 release has now been validated on real hardware and published as a tagged GitHub Release. **Magic Swipe is not yet available from the official F-Droid repository.** Store screenshots/icon metadata and the final `fdroiddata` lint/build CI still need to be completed before an inclusion request is opened.
 
 See [FDROID_SUBMISSION.md](FDROID_SUBMISSION.md) for the current checklist and [fdroid/](fdroid/) for the packaging files.
 
