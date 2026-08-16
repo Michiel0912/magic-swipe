@@ -5,7 +5,9 @@
 - Prevent Magic Swipe's transparent edge overlays from covering the visible software keyboard on Android 11+.
 - Dynamically read the IME bottom inset and shorten the gesture overlays above the keyboard while it is visible.
 - Keep the user's configured bottom exclusion when it is larger than the keyboard inset.
-- Confirmed on HONOR Magic8 Pro / MagicOS 10 / Android 16: edge keyboard keys remain immediately responsive while Back swipes continue to work above the keyboard and after it closes.
+- Raise the default top exclusion from 28dp to 80dp so toolbar actions near the upper corners, such as three-dot menus, remain immediately responsive.
+- Migrate the old v0.3.0 default top exclusion to 80dp while preserving custom top-exclusion values.
+- Confirmed on HONOR Magic8 Pro / MagicOS 10 / Android 16: edge keyboard keys remain immediately responsive, upper-corner toolbar actions work normally, and Back swipes continue to work in the remaining active edge area.
 
 ## 0.3.0 - 2026-08-16
 
