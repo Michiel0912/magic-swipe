@@ -1,0 +1,1 @@
+Magic Swipe branding, expanded language support, compatibility documentation, English-only public repository tooling, and improved display-cutout handling. Compatibility is still confirmed only on HONOR Magic8 Pro with MagicOS 10 / Android 16 until more devices are reported.
