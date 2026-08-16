@@ -90,6 +90,7 @@ public final class EdgeBackAccessibilityService extends AccessibilityService
     private WindowManager.LayoutParams makeLayoutParams(boolean left, int nativeInsetPx,
                                                          int widthPx, int topPx, int heightPx) {
         int flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
                 | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
                 | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
