@@ -1,3 +1,3 @@
-Fix software keyboard edge keys being delayed by Magic Swipe overlays.
+Fix edge controls being delayed by Magic Swipe overlays.
 
-Magic Swipe now detects the visible keyboard area on Android 11+ and automatically shortens its gesture zones above it, while keeping Back swipes active elsewhere.
+Magic Swipe now detects the visible software keyboard on Android 11+ and automatically shortens its gesture zones above it. The default top exclusion is also increased to 80dp so toolbar actions near the upper corners, such as three-dot menus, remain immediately responsive.
