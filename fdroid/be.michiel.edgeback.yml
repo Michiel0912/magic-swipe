@@ -37,7 +37,15 @@ Builds:
       - export ANDROID_SDK_ROOT=$$SDK$$
       - bash fdroid/build.sh
 
+  - versionName: 0.4.0
+    versionCode: 8
+    commit: v0.4.0
+    output: MagicSwipe-v0.4.0-unsigned.apk
+    build:
+      - export ANDROID_SDK_ROOT=$$SDK$$
+      - bash fdroid/build.sh
+
 AutoUpdateMode: Version v%v
 UpdateCheckMode: Tags ^v[0-9]+\.[0-9]+\.[0-9]+$
-CurrentVersion: 0.3.1
-CurrentVersionCode: 7
+CurrentVersion: 0.4.0
+CurrentVersionCode: 8
