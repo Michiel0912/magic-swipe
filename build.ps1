@@ -2,7 +2,7 @@ param([switch]$BuildOnly)
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $Build = Join-Path $Root 'build'
-$OutApk = Join-Path $Root 'MagicSwipe-v0.4.0.apk'
+$OutApk = Join-Path $Root 'MagicSwipe-v0.4.1.apk'
 
 function Section([string]$name) { Write-Host "`n===== $name =====" -ForegroundColor Cyan }
 function Add-Candidate([System.Collections.Generic.List[string]]$list, [string]$path) {
@@ -147,7 +147,7 @@ if ($LASTEXITCODE -ne 0) { throw 'aapt2 compile failed.' }
 
 $unsigned = Join-Path $Build 'resources-unsigned.apk'
 & $aapt2 link -o $unsigned -I $androidJar --manifest (Join-Path $Root 'app\src\main\AndroidManifest.xml') `
-    --java $gen --min-sdk-version 26 --target-sdk-version 36 --version-code 8 --version-name '0.4.0' $resCompiled
+    --java $gen --min-sdk-version 26 --target-sdk-version 36 --version-code 9 --version-name '0.4.1' $resCompiled
 if ($LASTEXITCODE -ne 0) { throw 'aapt2 link failed.' }
 
 $sources = @(Get-ChildItem (Join-Path $Root 'app\src\main\java') -Filter '*.java' -Recurse | ForEach-Object FullName)
