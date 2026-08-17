@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4.1 - 2026-08-17
+
+- Automatic GitHub update checks are now disabled by default.
+- Enabling automatic checks now requires explicit informed consent.
+- The consent dialog explains that GitHub APK downloads happen outside F-Droid and bypass F-Droid's build verification.
+- The update-available dialog repeats that warning before opening the official GitHub APK.
+- Upgrades from v0.4.0 reset the old default-on automatic update setting so no background GitHub check occurs until the user opts in again.
+- Manual update checks remain available as an explicit user action.
+- Prepared the F-Droid build recipe and metadata for versionCode 9.
+- No changes to the AccessibilityService gesture behavior.
+
 ## 0.4.0 - 2026-08-17
 
 - Added an optional built-in GitHub update checker.
