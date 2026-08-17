@@ -17,9 +17,12 @@ if [[ ! -f "$ANDROID_JAR" ]]; then
   exit 1
 fi
 
-BUILD_TOOLS="$(find "$SDK/build-tools" -mindepth 1 -maxdepth 1 -type d -name '36*' -print | sort -V | tail -n 1)"
-if [[ -z "$BUILD_TOOLS" ]]; then
-  echo "Android Build-Tools 36.x not found." >&2
+# Keep this exact build-tools version in sync with build.ps1 and F-Droid metadata.
+# D8 embeds its compiler version in classes.dex, so selecting a different 36.x
+# release would break cross-platform reproducibility even with identical sources.
+BUILD_TOOLS="$SDK/build-tools/36.0.0"
+if [[ ! -d "$BUILD_TOOLS" ]]; then
+  echo "Android Build-Tools 36.0.0 not found: $BUILD_TOOLS" >&2
   exit 1
 fi
 
