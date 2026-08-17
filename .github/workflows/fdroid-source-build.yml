@@ -3,7 +3,7 @@ name: F-Droid source build
 on:
   push:
     branches:
-      - fdroid-v0.4.1
+      - main
   pull_request:
   workflow_dispatch:
 
