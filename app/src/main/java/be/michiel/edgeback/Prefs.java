@@ -17,6 +17,7 @@ final class Prefs {
     static final String DEBUG = "debug_zones";
     static final String AUTO_UPDATE_CHECK = "auto_update_check";
     static final String LAST_UPDATE_CHECK_MS = "last_update_check_ms";
+    static final String UPDATE_CONSENT_VERSION = "update_consent_version";
     static final String APPEARANCE = "appearance";
 
     static final String APPEARANCE_SYSTEM = "system";
@@ -24,7 +25,7 @@ final class Prefs {
     static final String APPEARANCE_DARK = "dark";
 
     private static final String PREFS_MIGRATION_VERSION = "prefs_migration_version";
-    private static final int CURRENT_PREFS_MIGRATION_VERSION = 1;
+    private static final int CURRENT_PREFS_MIGRATION_VERSION = 2;
     private static final int LEGACY_DEFAULT_TOP_EXCLUDE_DP = 28;
 
     static final boolean DEFAULT_LEFT = true;
@@ -35,7 +36,8 @@ final class Prefs {
     static final int DEFAULT_BOTTOM_EXCLUDE_DP = 88;
     static final boolean DEFAULT_HAPTIC = true;
     static final boolean DEFAULT_DEBUG = false;
-    static final boolean DEFAULT_AUTO_UPDATE_CHECK = true;
+    static final boolean DEFAULT_AUTO_UPDATE_CHECK = false;
+    static final int CURRENT_UPDATE_CONSENT_VERSION = 1;
     static final String DEFAULT_APPEARANCE = APPEARANCE_SYSTEM;
 
     private Prefs() {}
@@ -52,15 +54,29 @@ final class Prefs {
 
         SharedPreferences.Editor editor = prefs.edit();
 
-        // v0.3.0 used a 28dp default top exclusion, which can overlap toolbar actions
-        // near the upper screen corners. Preserve custom values, but migrate that legacy
-        // default to the validated 80dp safe area used by v0.3.1.
-        int top = prefs.getInt(TOP_EXCLUDE_DP, LEGACY_DEFAULT_TOP_EXCLUDE_DP);
-        if (!prefs.contains(TOP_EXCLUDE_DP) || top == LEGACY_DEFAULT_TOP_EXCLUDE_DP) {
-            editor.putInt(TOP_EXCLUDE_DP, DEFAULT_TOP_EXCLUDE_DP);
+        if (version < 1) {
+            // v0.3.0 used a 28dp default top exclusion, which can overlap toolbar actions
+            // near the upper screen corners. Preserve custom values, but migrate that legacy
+            // default to the validated 80dp safe area used since v0.3.1.
+            int top = prefs.getInt(TOP_EXCLUDE_DP, LEGACY_DEFAULT_TOP_EXCLUDE_DP);
+            if (!prefs.contains(TOP_EXCLUDE_DP) || top == LEGACY_DEFAULT_TOP_EXCLUDE_DP) {
+                editor.putInt(TOP_EXCLUDE_DP, DEFAULT_TOP_EXCLUDE_DP);
+            }
+        }
+
+        if (version < 2) {
+            // v0.4.0 enabled automatic GitHub update checks by default. From v0.4.1 onward,
+            // external update checks are opt-in and require an explicit disclosure/consent.
+            editor.putBoolean(AUTO_UPDATE_CHECK, false);
+            editor.putInt(UPDATE_CONSENT_VERSION, 0);
+            editor.remove(LAST_UPDATE_CHECK_MS);
         }
 
         editor.putInt(PREFS_MIGRATION_VERSION, CURRENT_PREFS_MIGRATION_VERSION).apply();
+    }
+
+    static boolean hasUpdateConsent(SharedPreferences prefs) {
+        return prefs.getInt(UPDATE_CONSENT_VERSION, 0) >= CURRENT_UPDATE_CONSENT_VERSION;
     }
 
     static boolean isDarkMode(Context context, SharedPreferences prefs) {
