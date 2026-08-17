@@ -1,0 +1,1 @@
+Automatic GitHub update checks are now disabled by default and require explicit informed consent. Magic Swipe clearly warns that GitHub APK downloads happen outside F-Droid and bypass F-Droid build verification. Manual checks remain available. No gesture-service behavior changed.
