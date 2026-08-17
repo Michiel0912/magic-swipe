@@ -1,0 +1,37 @@
+name: F-Droid fdroidserver candidate build
+
+on:
+  push:
+    branches:
+      - fdroid-v0.4.1
+  workflow_dispatch:
+
+jobs:
+  fdroid-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout Magic Swipe
+        uses: actions/checkout@v4
+
+      - name: Install current fdroidserver
+        run: |
+          python3 -m venv "$RUNNER_TEMP/fdroidserver-env"
+          . "$RUNNER_TEMP/fdroidserver-env/bin/activate"
+          python -m pip install --upgrade pip
+          python -m pip install 'git+https://gitlab.com/fdroid/fdroidserver.git'
+          fdroid --version
+
+      - name: Clone current fdroiddata and inject candidate metadata
+        run: |
+          git clone --depth=1 https://gitlab.com/fdroid/fdroiddata.git "$RUNNER_TEMP/fdroiddata-build"
+          cp fdroid/be.michiel.edgeback.yml "$RUNNER_TEMP/fdroiddata-build/metadata/be.michiel.edgeback.yml"
+          sed -i "s/commit: v0.4.1/commit: $GITHUB_SHA/" "$RUNNER_TEMP/fdroiddata-build/metadata/be.michiel.edgeback.yml"
+
+      - name: Build candidate through fdroidserver
+        run: |
+          . "$RUNNER_TEMP/fdroidserver-env/bin/activate"
+          cd "$RUNNER_TEMP/fdroiddata-build"
+          fdroid readmeta
+          fdroid lint be.michiel.edgeback
+          fdroid build --test --no-tarball --stop --verbose be.michiel.edgeback:9
