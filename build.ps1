@@ -20,18 +20,13 @@ function Find-SdkManager([string]$sdkRoot) {
     return ($candidates | Where-Object { Test-Path $_ } | Select-Object -First 1)
 }
 function Find-BuildTools([string]$sdkRoot) {
-    $root = Join-Path $sdkRoot 'build-tools'
-    if (-not (Test-Path $root)) { return $null }
-    $dirs = @(Get-ChildItem $root -Directory -ErrorAction SilentlyContinue | Sort-Object {
-        try { [version]($_.Name -replace '-.*$','') } catch { [version]'0.0' }
-    } -Descending)
-    foreach ($d in $dirs) {
-        $need = @('aapt2.exe','d8.bat','zipalign.exe','apksigner.bat')
-        $ok = $true
-        foreach ($n in $need) { if (-not (Test-Path (Join-Path $d.FullName $n))) { $ok = $false; break } }
-        if ($ok) { return $d.FullName }
-    }
-    return $null
+    # Reproducible builds require the exact same Android build-tools/D8 version
+    # on Windows and in F-Droid. Do not silently select the newest installed one.
+    $dir = Join-Path (Join-Path $sdkRoot 'build-tools') '36.0.0'
+    if (-not (Test-Path $dir)) { return $null }
+    $need = @('aapt2.exe','d8.bat','zipalign.exe','apksigner.bat')
+    foreach ($n in $need) { if (-not (Test-Path (Join-Path $dir $n))) { return $null } }
+    return $dir
 }
 function Test-UsableSdk([string]$sdkRoot) {
     if (-not $sdkRoot -or -not (Test-Path $sdkRoot)) { return $false }
@@ -116,7 +111,7 @@ if (-not $SdkRoot) {
 No usable Android SDK found.
 If Android Studio is installed, open it once and install through SDK Manager:
   - Android 16 / API 36 (SDK Platform)
-  - Android SDK Build-Tools 36.x
+  - Android SDK Build-Tools 36.0.0
 Then run BUILD_AND_INSTALL.bat again.
 The script does not download a separate command-line-tools ZIP.
 '@
