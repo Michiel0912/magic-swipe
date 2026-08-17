@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout
+      - name: Checkout Magic Swipe
         uses: actions/checkout@v4
 
       - name: Install current fdroidserver
@@ -23,9 +23,9 @@ jobs:
           python -m pip install 'git+https://gitlab.com/fdroid/fdroidserver.git'
           fdroid --version
 
-      - name: Prepare fdroiddata-style metadata directory
+      - name: Clone current fdroiddata
         run: |
-          mkdir -p "$RUNNER_TEMP/fdroiddata-check/metadata"
+          git clone --depth=1 https://gitlab.com/fdroid/fdroiddata.git "$RUNNER_TEMP/fdroiddata-check"
           cp fdroid/be.michiel.edgeback.yml "$RUNNER_TEMP/fdroiddata-check/metadata/be.michiel.edgeback.yml"
 
       - name: Read and lint metadata with fdroidserver
