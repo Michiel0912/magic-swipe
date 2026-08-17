@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.4.0 - 2026-08-17
+
+- Added an optional built-in GitHub update checker.
+- Magic Swipe checks the public GitHub Releases API at most once every 24 hours when the settings screen is opened, with a manual "Check for updates now" option.
+- When a newer release is available, Magic Swipe shows the installed and available versions, release notes, and gives the user the choice to update or postpone.
+- The Update action opens the official APK asset from the GitHub Release in the browser; Magic Swipe does not request package-installer privileges or silently install updates.
+- Added System, Light, and Dark appearance modes. System is the default and follows the phone theme.
+- Added a dedicated light color palette rather than simply inverting the existing dark interface.
+- Added INTERNET permission only for the settings-screen update checker. The AccessibilityService itself does not use the network and still does not retrieve screen content.
+- Kept the v0.3.1 keyboard/IME and 80dp top-exclusion fixes unchanged.
+- Confirmed on HONOR Magic8 Pro / MagicOS 10 / Android 16.
+
 ## 0.3.1 - 2026-08-16
 
 - Prevent Magic Swipe's transparent edge overlays from covering the visible software keyboard on Android 11+.
