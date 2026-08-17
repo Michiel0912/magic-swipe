@@ -3,7 +3,7 @@ name: F-Droid fdroidserver candidate build
 on:
   push:
     branches:
-      - fdroid-v0.4.1
+      - main
   workflow_dispatch:
 
 jobs:
@@ -26,9 +26,8 @@ jobs:
         run: |
           git clone --depth=1 https://gitlab.com/fdroid/fdroiddata.git "$RUNNER_TEMP/fdroiddata-build"
           cp fdroid/be.michiel.edgeback.yml "$RUNNER_TEMP/fdroiddata-build/metadata/be.michiel.edgeback.yml"
-          sed -i "s/commit: v0.4.1/commit: $GITHUB_SHA/" "$RUNNER_TEMP/fdroiddata-build/metadata/be.michiel.edgeback.yml"
 
-      - name: Build candidate through fdroidserver
+      - name: Build and verify candidate through fdroidserver
         run: |
           . "$RUNNER_TEMP/fdroidserver-env/bin/activate"
           cd "$RUNNER_TEMP/fdroiddata-build"
