@@ -16,10 +16,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: Install Android API 36 and Build-Tools 36.0.0
         run: |
@@ -29,7 +32,7 @@ jobs:
       - name: Build unsigned F-Droid APK
         run: |
           chmod +x fdroid/build.sh
-          ANDROID_SDK_ROOT="$ANDROID_SDK_ROOT" bash fdroid/build.sh
+          bash fdroid/build.sh
 
       - name: Verify package and version
         run: |
