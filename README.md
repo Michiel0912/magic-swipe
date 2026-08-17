@@ -12,16 +12,16 @@ It does **not** replace Android's native gesture area. Magic Swipe only fills th
 
 ## Download
 
-The first public release, **Magic Swipe v0.3.0**, is available from GitHub Releases.
+The latest public release, **Magic Swipe v0.3.1**, is available from GitHub Releases.
 
-**[Download MagicSwipe-v0.3.0.apk](https://github.com/Michiel0912/magic-swipe/releases/download/v0.3.0/MagicSwipe-v0.3.0.apk)**
+**[Download MagicSwipe-v0.3.1.apk](https://github.com/Michiel0912/magic-swipe/releases/download/v0.3.1/MagicSwipe-v0.3.1.apk)**
 
-[View the v0.3.0 release notes](https://github.com/Michiel0912/magic-swipe/releases/tag/v0.3.0) · [Download SHA-256 checksum](https://github.com/Michiel0912/magic-swipe/releases/download/v0.3.0/MagicSwipe-v0.3.0-SHA256.txt)
+[View the v0.3.1 release notes](https://github.com/Michiel0912/magic-swipe/releases/tag/v0.3.1) · [Download SHA-256 checksum](https://github.com/Michiel0912/magic-swipe/releases/download/v0.3.1/MagicSwipe-v0.3.1-SHA256.txt)
 
 SHA-256:
 
 ```text
-49aab7a9732f58d57d69cfc9775b46e2e1c972488c6dd8bb2271aa29ed2cef34
+642446d7ac0eca1234334a8e0b7b133f73e0c1353a78ed336e2740edfd4f7992
 ```
 
 The APK is signed with the definitive Magic Swipe release signing identity. Future direct GitHub APK releases are intended to use the same signing identity so they can update an existing Magic Swipe installation normally.
@@ -58,6 +58,8 @@ See [COMPATIBILITY.md](COMPATIBILITY.md) for the test policy and how to report a
 - Automatically detects the native Back-zone width when the Android resource is available
 - Adjustable total Back-zone width and swipe distance
 - Adjustable top and bottom exclusions to protect other gestures
+- Keeps the gesture overlay above the visible software keyboard on Android 11+
+- Uses an 80dp default top exclusion to protect toolbar actions near the screen corners
 - Optional haptic feedback
 - Test mode that makes the otherwise transparent extra zones visible
 - Rebuilds overlays after configuration changes and works again after reboot once the AccessibilityService is enabled
@@ -120,7 +122,7 @@ INSTALL_ONLY.bat
 The output APK is:
 
 ```text
-MagicSwipe-v0.3.0.apk
+MagicSwipe-v0.3.1.apk
 ```
 
 ### Signing and upgrades
@@ -147,7 +149,7 @@ Magic Swipe is intentionally minimal:
 
 Magic Swipe is being prepared for submission to the official F-Droid repository. The repository contains upstream Fastlane/Triple-T text metadata, a Linux source-build helper, and a draft `fdroiddata` build recipe.
 
-The v0.3.0 release has now been validated on real hardware and published as a tagged GitHub Release. **Magic Swipe is not yet available from the official F-Droid repository.** Store screenshots/icon metadata and the final `fdroiddata` lint/build CI still need to be completed before an inclusion request is opened.
+The v0.3.1 release has been validated on real hardware and published as a GitHub Release. **Magic Swipe is not yet available from the official F-Droid repository.** Store screenshots/icon metadata and the final `fdroiddata` lint/build CI still need to be completed before an inclusion request is opened.
 
 See [FDROID_SUBMISSION.md](FDROID_SUBMISSION.md) for the current checklist and [fdroid/](fdroid/) for the packaging files.
 
