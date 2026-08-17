@@ -2,7 +2,7 @@ param([switch]$BuildOnly)
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $Build = Join-Path $Root 'build'
-$OutApk = Join-Path $Root 'MagicSwipe-v0.3.1.apk'
+$OutApk = Join-Path $Root 'MagicSwipe-v0.4.0.apk'
 
 function Section([string]$name) { Write-Host "`n===== $name =====" -ForegroundColor Cyan }
 function Add-Candidate([System.Collections.Generic.List[string]]$list, [string]$path) {
@@ -48,7 +48,6 @@ if (-not $BuildOnly) {
     elseif (Test-Path 'C:\platform_tools\adb.exe') { $adb = 'C:\platform_tools\adb.exe' }
     if (-not $adb) { throw 'adb.exe not found. Put adb in PATH or use C:\platform_tools\adb.exe.' }
 
-    # Use `adb devices` so a disconnected device does not produce a noisy NativeCommandError.
     $deviceLines = @(& $adb devices 2>$null)
     $device = $deviceLines | Where-Object { $_ -match '\sdevice$' } | Select-Object -First 1
     if (-not $device) { throw 'No device connected through ADB. Connect the phone first and verify with adb devices.' }
@@ -86,7 +85,6 @@ Add-Candidate $candidates (Join-Path $env:USERPROFILE 'AppData\Local\Android\Sdk
 Add-Candidate $candidates 'C:\Android\Sdk'
 Add-Candidate $candidates (Join-Path $Root '.android-sdk')
 
-# Reuse an SDK downloaded by an older pre-v0.3 project build if available.
 $parent = Split-Path $Root -Parent
 if (Test-Path $parent) {
     foreach ($d in @(Get-ChildItem $parent -Directory -ErrorAction SilentlyContinue)) {
@@ -99,7 +97,6 @@ foreach ($c in $candidates) {
     if (Test-UsableSdk $c) { $SdkRoot = $c; break }
 }
 
-# If an SDK exists but API 36/build-tools are missing, try installing them with an existing sdkmanager.
 if (-not $SdkRoot) {
     foreach ($c in $candidates) {
         $sm = Find-SdkManager $c
@@ -150,7 +147,7 @@ if ($LASTEXITCODE -ne 0) { throw 'aapt2 compile failed.' }
 
 $unsigned = Join-Path $Build 'resources-unsigned.apk'
 & $aapt2 link -o $unsigned -I $androidJar --manifest (Join-Path $Root 'app\src\main\AndroidManifest.xml') `
-    --java $gen --min-sdk-version 26 --target-sdk-version 36 --version-code 7 --version-name '0.3.1' $resCompiled
+    --java $gen --min-sdk-version 26 --target-sdk-version 36 --version-code 8 --version-name '0.4.0' $resCompiled
 if ($LASTEXITCODE -ne 0) { throw 'aapt2 link failed.' }
 
 $sources = @(Get-ChildItem (Join-Path $Root 'app\src\main\java') -Filter '*.java' -Recurse | ForEach-Object FullName)
@@ -176,7 +173,6 @@ if ($LASTEXITCODE -ne 0) { throw 'zipalign failed.' }
 
 $keystore = Join-Path $Root 'edgeback-local.keystore'
 if (-not (Test-Path $keystore)) {
-    # Reuse the signing key from an earlier pre-v0.3 project folder so upgrades work over an existing installation.
     $oldKey = $null
     $parentForKey = Split-Path $Root -Parent
     if (Test-Path $parentForKey) {
