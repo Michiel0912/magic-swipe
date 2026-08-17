@@ -57,6 +57,7 @@ public final class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         refreshStatus();
+        UpdateChecker.checkAutomatically(this, prefs);
     }
 
     private View buildUi() {
@@ -92,6 +93,7 @@ public final class MainActivity extends Activity {
         addGestureCard(root);
         addProtectionCard(root);
         addLanguageCard(root);
+        addUpdateCard(root);
         addPrivacyCard(root);
         addFooter(root);
         return scroll;
@@ -113,7 +115,7 @@ public final class MainActivity extends Activity {
         textCol.setOrientation(LinearLayout.VERTICAL);
         textCol.setGravity(Gravity.CENTER_VERTICAL);
         textCol.addView(text(getString(R.string.app_name), 29, COLOR_CYAN, true));
-        textCol.addView(text("v0.3.1", 13, COLOR_MUTED, false));
+        textCol.addView(text("v0.4.0", 13, COLOR_MUTED, false));
         row.addView(textCol, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
         root.addView(row);
 
@@ -182,6 +184,39 @@ public final class MainActivity extends Activity {
         addCard(root, card);
     }
 
+    private void addUpdateCard(LinearLayout root) {
+        LinearLayout card = card();
+        addCardTitle(card, getString(R.string.section_updates));
+
+        TextView summary = text(getString(R.string.update_summary), 14, COLOR_MUTED, false);
+        summary.setLineSpacing(0f, 1.1f);
+        LinearLayout.LayoutParams sp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        sp.bottomMargin = Prefs.dp(this, 10);
+        card.addView(summary, sp);
+
+        Switch automatic = new Switch(this);
+        automatic.setText(getString(R.string.auto_update_check));
+        automatic.setTextSize(15);
+        automatic.setTextColor(COLOR_TEXT);
+        automatic.setChecked(prefs.getBoolean(Prefs.AUTO_UPDATE_CHECK, Prefs.DEFAULT_AUTO_UPDATE_CHECK));
+        automatic.setThumbTintList(accentStates(COLOR_CYAN, Color.rgb(110, 124, 145)));
+        automatic.setTrackTintList(accentStates(Color.rgb(20, 104, 126), Color.rgb(55, 69, 88)));
+        automatic.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences.Editor editor = prefs.edit().putBoolean(Prefs.AUTO_UPDATE_CHECK, isChecked);
+            if (isChecked) editor.remove(Prefs.LAST_UPDATE_CHECK_MS);
+            editor.apply();
+            if (isChecked) UpdateChecker.checkAutomatically(this, prefs);
+        });
+        card.addView(automatic);
+
+        Button check = secondaryButton(getString(R.string.check_updates_now));
+        check.setOnClickListener(v -> UpdateChecker.checkNow(this));
+        LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        cp.topMargin = Prefs.dp(this, 10);
+        card.addView(check, cp);
+        addCard(root, card);
+    }
+
     private void addPrivacyCard(LinearLayout root) {
         LinearLayout card = card();
         card.addView(text("✓", 18, COLOR_CYAN, true));
@@ -210,7 +245,11 @@ public final class MainActivity extends Activity {
                     .putInt(Prefs.TRIGGER_DISTANCE_DP, Prefs.DEFAULT_TRIGGER_DISTANCE_DP)
                     .putInt(Prefs.TOP_EXCLUDE_DP, Prefs.DEFAULT_TOP_EXCLUDE_DP)
                     .putInt(Prefs.BOTTOM_EXCLUDE_DP, Prefs.DEFAULT_BOTTOM_EXCLUDE_DP)
-                    .putBoolean(Prefs.HAPTIC, Prefs.DEFAULT_HAPTIC).putBoolean(Prefs.DEBUG, Prefs.DEFAULT_DEBUG).apply();
+                    .putBoolean(Prefs.HAPTIC, Prefs.DEFAULT_HAPTIC)
+                    .putBoolean(Prefs.DEBUG, Prefs.DEFAULT_DEBUG)
+                    .putBoolean(Prefs.AUTO_UPDATE_CHECK, Prefs.DEFAULT_AUTO_UPDATE_CHECK)
+                    .remove(Prefs.LAST_UPDATE_CHECK_MS)
+                    .apply();
             recreate();
         });
         LinearLayout.LayoutParams rp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
