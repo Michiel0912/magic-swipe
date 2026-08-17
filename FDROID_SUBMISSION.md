@@ -10,7 +10,7 @@ Magic Swipe is being prepared for the official F-Droid repository. The current c
 - GitHub update checks are optional; automatic checks are disabled by default and require explicit informed consent
 - External GitHub APK downloads are clearly disclosed as outside F-Droid verification
 - Privacy policy: `PRIVACY.md`
-- Fastlane/Triple-T English metadata and store icon
+- Fastlane/Triple-T English metadata, store icon, and three real phone screenshots
 - F-Droid build recipe: `fdroid/be.michiel.edgeback.yml`
 - Linux source-build helper: `fdroid/build.sh`
 - GitHub Actions Linux source build: passing
@@ -55,9 +55,8 @@ This is the same core reproducible-binary verification path used by fdroidserver
 
 ## Remaining steps
 
-1. Add real app screenshots under `fastlane/metadata/android/en-US/images/phoneScreenshots/`.
-2. Put the prepared metadata into a public fork of `fdroiddata` as `metadata/be.michiel.edgeback.yml`.
-3. Run/confirm the official fdroiddata app-inclusion merge-request pipeline.
-4. Open the official app-inclusion merge request and respond to reviewer feedback if any.
+1. Put the prepared metadata into a public fork of `fdroiddata` as `metadata/be.michiel.edgeback.yml`.
+2. Run/confirm the official fdroiddata app-inclusion merge-request pipeline.
+3. Open the official app-inclusion merge request and respond to reviewer feedback if any.
 
 Magic Swipe is not yet available from the official F-Droid repository.
