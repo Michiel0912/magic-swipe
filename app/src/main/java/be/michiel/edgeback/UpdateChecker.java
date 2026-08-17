@@ -21,12 +21,16 @@ final class UpdateChecker {
     private static final String LATEST_RELEASE_API =
             "https://api.github.com/repos/Michiel0912/magic-swipe/releases/latest";
     private static final long AUTO_CHECK_INTERVAL_MS = 24L * 60L * 60L * 1000L;
+    private static boolean consentDialogShowing;
 
     private UpdateChecker() {}
 
     static void checkAutomatically(Activity activity, SharedPreferences prefs) {
         if (!prefs.getBoolean(Prefs.AUTO_UPDATE_CHECK, Prefs.DEFAULT_AUTO_UPDATE_CHECK)) return;
-        if (!Prefs.hasUpdateConsent(prefs)) return;
+        if (!Prefs.hasUpdateConsent(prefs)) {
+            showAutomaticUpdateConsent(activity, prefs);
+            return;
+        }
 
         long now = System.currentTimeMillis();
         long last = prefs.getLong(Prefs.LAST_UPDATE_CHECK_MS, 0L);
@@ -39,6 +43,44 @@ final class UpdateChecker {
 
     static void checkNow(Activity activity) {
         check(activity, true);
+    }
+
+    private static void showAutomaticUpdateConsent(Activity activity, SharedPreferences prefs) {
+        if (consentDialogShowing || activity.isFinishing() || activity.isDestroyed()) return;
+        consentDialogShowing = true;
+
+        AlertDialog dialog = new AlertDialog.Builder(activity)
+                .setTitle(R.string.update_consent_title)
+                .setMessage(R.string.update_consent_message)
+                .setNegativeButton(R.string.update_consent_decline, (d, which) -> {
+                    prefs.edit()
+                            .putBoolean(Prefs.AUTO_UPDATE_CHECK, false)
+                            .putInt(Prefs.UPDATE_CONSENT_VERSION, 0)
+                            .remove(Prefs.LAST_UPDATE_CHECK_MS)
+                            .apply();
+                    activity.recreate();
+                })
+                .setPositiveButton(R.string.update_consent_enable, (d, which) -> {
+                    prefs.edit()
+                            .putBoolean(Prefs.AUTO_UPDATE_CHECK, true)
+                            .putInt(Prefs.UPDATE_CONSENT_VERSION,
+                                    Prefs.CURRENT_UPDATE_CONSENT_VERSION)
+                            .remove(Prefs.LAST_UPDATE_CHECK_MS)
+                            .apply();
+                    checkAutomatically(activity, prefs);
+                })
+                .create();
+
+        dialog.setOnCancelListener(d -> {
+            prefs.edit()
+                    .putBoolean(Prefs.AUTO_UPDATE_CHECK, false)
+                    .putInt(Prefs.UPDATE_CONSENT_VERSION, 0)
+                    .remove(Prefs.LAST_UPDATE_CHECK_MS)
+                    .apply();
+            activity.recreate();
+        });
+        dialog.setOnDismissListener(d -> consentDialogShowing = false);
+        dialog.show();
     }
 
     private static void check(Activity activity, boolean manual) {
