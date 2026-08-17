@@ -14,17 +14,22 @@ Magic Swipe is being prepared for the official F-Droid repository. The F-Droid p
 - Automatic GitHub update checks: disabled by default in v0.4.1
 - Automatic GitHub update consent: explicit informed consent required
 - External APK warning: clearly states that GitHub APK downloads are outside F-Droid and bypass F-Droid build verification
+- Privacy policy: ready as `PRIVACY.md`
 - Upstream Fastlane/Triple-T English text metadata: ready
 - F-Droid build recipe: ready under `fdroid/`
 - Linux source-build helper: ready as `fdroid/build.sh`
 - F-Droid candidate metadata: ready as `fdroid/be.michiel.edgeback.yml`
+- Store icon PNG: ready at `fastlane/metadata/android/en-US/images/icon.png`
+- GitHub Actions Linux source build: passing
+- CI-verified package ID: `be.michiel.edgeback`
+- CI-verified candidate version: `0.4.1` / versionCode 9 / compileSdk 36
+- CI unsigned APK SHA-256: `5db330ac6ff58f21277f86fe23754e8adae0690c0c924f4811121bd9771fa966`
 - Real-device validation for the gesture service: complete on HONOR Magic8 Pro / MagicOS 10 / Android 16
 - Definitive Magic Swipe upstream signing identity: established before public distribution
-- Store icon PNG under Fastlane metadata: pending
 - Real app screenshots for the store listing: pending
 - v0.4.1 real-device validation: pending
 - v0.4.1 release tag and signed APK: pending
-- F-Droid/fdroiddata CI build: pending
+- Official fdroiddata lint/build pipeline: pending
 - Reproducible-build comparison against the upstream-signed APK: pending
 - F-Droid inclusion merge request: pending
 
@@ -34,18 +39,26 @@ F-Droid's inclusion policy requires executable downloads such as external auto-u
 
 On upgrade from v0.4.0, v0.4.1 resets automatic GitHub checks to disabled. Enabling them presents an informed-consent dialog. The update-available dialog also warns before opening an external GitHub APK. Manual update checks remain available as an explicit user action.
 
+## Validation completed
+
+The candidate builds successfully on a clean Ubuntu GitHub Actions runner using Temurin JDK 17, Android API 36 and Android Build-Tools 36.0.0. CI validates the resulting unsigned APK's package ID, versionName and versionCode before uploading it as an artifact.
+
+The current CI-produced unsigned APK has SHA-256:
+
+`5db330ac6ff58f21277f86fe23754e8adae0690c0c924f4811121bd9771fa966`
+
+This is a source-build validation hash, not the final signed release hash.
+
 ## Remaining steps before submission
 
 1. Build and install the v0.4.1 candidate on real hardware.
 2. Verify the update-consent flow, manual update check, appearance modes, AccessibilityService behavior, keyboard safe zone, and upper-corner safe zone.
-3. Build the unsigned APK with `fdroid/build.sh` on Linux/CI and verify package ID, versionName, and versionCode.
-4. Publish the signed v0.4.1 GitHub APK using the established Magic Swipe signing identity and record its SHA-256/certificate fingerprint.
-5. Attempt a reproducible-build comparison. If it matches, add `Binaries` and `AllowedAPKSigningKeys` so F-Droid can publish the upstream-signed APK. If it does not match initially, submit with normal F-Droid signing and continue reproducibility work separately.
-6. Export the Magic Swipe logo to `fastlane/metadata/android/en-US/images/icon.png`.
-7. Add at least two real app screenshots under `fastlane/metadata/android/en-US/images/phoneScreenshots/`.
-8. Copy `fdroid/be.michiel.edgeback.yml` into a public fork of `fdroiddata` as `metadata/be.michiel.edgeback.yml`.
-9. Run/confirm the fdroiddata pipeline (`lint`, source scan, metadata checks, and build).
-10. Open the official app-inclusion merge request after the build pipeline passes.
+3. Publish the signed v0.4.1 GitHub APK using the established Magic Swipe signing identity and record its SHA-256/certificate fingerprint.
+4. Attempt a reproducible-build comparison. If it matches, add `Binaries` and `AllowedAPKSigningKeys` so F-Droid can publish the upstream-signed APK. If it does not match initially, submit with normal F-Droid signing and continue reproducibility work separately.
+5. Add real app screenshots under `fastlane/metadata/android/en-US/images/phoneScreenshots/` if available. They are desirable store metadata but should not block technical build validation.
+6. Copy `fdroid/be.michiel.edgeback.yml` into a public fork of `fdroiddata` as `metadata/be.michiel.edgeback.yml`.
+7. Run/confirm the official fdroiddata pipeline (`lint`, source scan, metadata checks, and build).
+8. Open the official app-inclusion merge request after the build pipeline passes.
 
 ## Reproducible builds
 
