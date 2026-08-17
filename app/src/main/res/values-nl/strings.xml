@@ -1,2 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><string name="app_name">Magic Swipe</string><string name="service_name">Magic Swipe</string><string name="accessibility_description">Vergroot het bruikbare startgebied voor het systeemgebaar Terug met transparante randzones. De service leest geen scherminhoud en gebruikt geen netwerk.</string><string name="intro">Voegt een smalle transparante zone toe net binnen de bestaande Terug-rand. De native Terug-zone van de telefoon blijft volledig ongemoeid.</string><string name="service_active">Service: ACTIEF</string><string name="service_inactive">Service: NIET ACTIEF</string><string name="native_zone_format">Gedetecteerde native zone: %1$d px (%2$.1f dp). De extra zone begint daar net binnen.</string><string name="open_accessibility_settings">Toegankelijkheidsinstellingen openen</string><string name="section_language">Taal</string><string name="language_summary">Volgt standaard de systeemtaal. Vanaf Android 13 kun je een aparte taal voor de app kiezen.</string><string name="open_language_settings">Taal van de app instellen</string><string name="open_system_language_settings">Systeemtaalinstellingen openen</string><string name="section_sides">Zijden</string><string name="left_side">Linkerkant</string><string name="right_side">Rechterkant</string><string name="section_area_gesture">Gebied en gebaar</string><string name="total_back_zone">Totale Terug-zone</string><string name="suffix_from_edge">dp vanaf de schermrand</string><string name="swipe_distance">Swipe-afstand</string><string name="suffix_horizontal_before_back">dp horizontale beweging vóór Terug</string><string name="exclude_top">Boven uitsluiten</string><string name="suffix_dp">dp</string><string name="exclude_bottom">Onder uitsluiten</string><string name="suffix_bottom_exclusion">dp (beschermt home-gesture en toetsenbordhoek)</string><string name="section_behavior">Gedrag</string><string name="haptic_back">Haptische tik bij Terug</string><string name="debug_zones">Testmodus: toon de extra zones</string><string name="restore_defaults">Standaardwaarden herstellen</string><string name="privacy_text">Privacy: geen INTERNET-permissie, geen analytics en geen toegang tot scherminhoud. De AccessibilityService voert uitsluitend GLOBAL_ACTION_BACK uit na een swipe in de extra randzone.</string><string name="seek_value_format">%1$s: %2$d %3$s</string></resources>
+<resources>
+<string name="app_name">Magic Swipe</string><string name="service_name">Magic Swipe</string>
+<string name="accessibility_description">Vergroot het bruikbare startgebied voor het systeemgebaar Terug met transparante randzones. De service leest geen scherminhoud en gebruikt geen netwerk.</string>
+<string name="intro">Voegt een smalle transparante zone toe net binnen de bestaande Terug-rand. De native Terug-zone van de telefoon blijft volledig ongemoeid.</string>
+<string name="service_active">Service: ACTIEF</string><string name="service_inactive">Service: NIET ACTIEF</string>
+<string name="native_zone_format">Gedetecteerde native zone: %1$d px (%2$.1f dp). De extra zone begint daar net binnen.</string>
+<string name="open_accessibility_settings">Toegankelijkheidsinstellingen openen</string><string name="section_language">Taal</string>
+<string name="language_summary">Volgt standaard de systeemtaal. Vanaf Android 13 kun je een aparte taal voor de app kiezen.</string>
+<string name="open_language_settings">Taal van de app instellen</string><string name="open_system_language_settings">Systeemtaalinstellingen openen</string>
+<string name="section_sides">Zijden</string><string name="left_side">Linkerkant</string><string name="right_side">Rechterkant</string>
+<string name="section_area_gesture">Gebied en gebaar</string><string name="total_back_zone">Totale Terug-zone</string>
+<string name="suffix_from_edge">dp vanaf de schermrand</string><string name="swipe_distance">Swipe-afstand</string>
+<string name="suffix_horizontal_before_back">dp horizontale beweging vóór Terug</string><string name="exclude_top">Boven uitsluiten</string>
+<string name="suffix_dp">dp</string><string name="exclude_bottom">Onder uitsluiten</string>
+<string name="suffix_bottom_exclusion">dp (beschermt home-gesture en toetsenbordhoek)</string><string name="section_behavior">Gedrag</string>
+<string name="haptic_back">Haptische tik bij Terug</string><string name="debug_zones">Testmodus: toon de extra zones</string>
+<string name="restore_defaults">Standaardwaarden herstellen</string>
+<string name="section_appearance">Weergave</string>
+<string name="appearance_summary">Volg automatisch de weergave van de telefoon, of gebruik altijd de lichte of donkere Magic Swipe-weergave.</string>
+<string name="appearance_current">Weergave: %1$s</string>
+<string name="appearance_system">Systeemstandaard</string>
+<string name="appearance_light">Licht</string>
+<string name="appearance_dark">Donker</string>
+<string name="section_updates">Updates</string>
+<string name="update_summary">Controleert de openbare GitHub Releases API wanneer dit instellingenscherm wordt geopend. Automatische controles gebeuren maximaal één keer per 24 uur.</string>
+<string name="auto_update_check">Automatisch controleren op updates</string>
+<string name="check_updates_now">Nu controleren op updates</string>
+<string name="update_available_title">Magic Swipe-update beschikbaar</string>
+<string name="update_available_message">Geïnstalleerd: v%1$s\nBeschikbaar: v%2$s</string>
+<string name="update_download">Updaten</string>
+<string name="update_later">Later</string>
+<string name="update_up_to_date">Magic Swipe v%1$s is up-to-date.</string>
+<string name="update_check_failed">Kon GitHub niet controleren op updates.</string>
+<string name="update_open_failed">Kon de update-download niet openen.</string>
+<string name="privacy_text">Privacy: geen analytics en geen toegang tot scherminhoud. INTERNET wordt alleen door het instellingenscherm gebruikt om via de openbare GitHub Releases API op updates te controleren. De AccessibilityService zelf gebruikt het netwerk niet.</string>
+<string name="seek_value_format">%1$s: %2$d %3$s</string>
+</resources>
