@@ -26,6 +26,7 @@ final class UpdateChecker {
 
     static void checkAutomatically(Activity activity, SharedPreferences prefs) {
         if (!prefs.getBoolean(Prefs.AUTO_UPDATE_CHECK, Prefs.DEFAULT_AUTO_UPDATE_CHECK)) return;
+        if (!Prefs.hasUpdateConsent(prefs)) return;
 
         long now = System.currentTimeMillis();
         long last = prefs.getLong(Prefs.LAST_UPDATE_CHECK_MS, 0L);
@@ -133,6 +134,7 @@ final class UpdateChecker {
 
         StringBuilder message = new StringBuilder(activity.getString(
                 R.string.update_available_message, currentVersion, release.version));
+        message.append("\n\n").append(activity.getString(R.string.update_external_download_warning));
         if (!notes.isEmpty()) message.append("\n\n").append(notes);
 
         new AlertDialog.Builder(activity)
