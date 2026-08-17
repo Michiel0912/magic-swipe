@@ -16,6 +16,12 @@
 <string name="suffix_bottom_exclusion">dp (protects the Home gesture and keyboard corner)</string><string name="section_behavior">Behavior</string>
 <string name="haptic_back">Haptic tap on Back</string><string name="debug_zones">Test mode: show the extra zones</string>
 <string name="restore_defaults">Restore defaults</string>
+<string name="section_appearance">Appearance</string>
+<string name="appearance_summary">Use the phone appearance automatically, or force a light or dark Magic Swipe interface.</string>
+<string name="appearance_current">Appearance: %1$s</string>
+<string name="appearance_system">System default</string>
+<string name="appearance_light">Light</string>
+<string name="appearance_dark">Dark</string>
 <string name="section_updates">Updates</string>
 <string name="update_summary">Checks the public GitHub Releases API when this settings screen is opened. Automatic checks run at most once every 24 hours.</string>
 <string name="auto_update_check">Automatically check for updates</string>
