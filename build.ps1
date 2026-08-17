@@ -162,6 +162,12 @@ Pop-Location
 & $d8 --lib $androidJar --min-api 26 --output $dex $classesJar
 if ($LASTEXITCODE -ne 0) { throw 'd8 failed.' }
 
+# jar records the source file's wall-clock timestamp when adding classes.dex.
+# Normalize it to the same fixed local wall time used by fdroid/build.sh so
+# Windows release builds and F-Droid Linux builds have the same ZIP entry time.
+$dexFile = Join-Path $dex 'classes.dex'
+[IO.File]::SetLastWriteTime($dexFile, [datetime]'2000-01-01T00:00:00')
+
 $withDex = Join-Path $Build 'with-dex.apk'
 Copy-Item $unsigned $withDex
 & $jar uf $withDex -C $dex 'classes.dex'
