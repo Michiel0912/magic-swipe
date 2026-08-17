@@ -14,6 +14,8 @@ final class Prefs {
     static final String BOTTOM_EXCLUDE_DP = "bottom_exclude_dp";
     static final String HAPTIC = "haptic";
     static final String DEBUG = "debug_zones";
+    static final String AUTO_UPDATE_CHECK = "auto_update_check";
+    static final String LAST_UPDATE_CHECK_MS = "last_update_check_ms";
     private static final String PREFS_MIGRATION_VERSION = "prefs_migration_version";
     private static final int CURRENT_PREFS_MIGRATION_VERSION = 1;
     private static final int LEGACY_DEFAULT_TOP_EXCLUDE_DP = 28;
@@ -26,6 +28,7 @@ final class Prefs {
     static final int DEFAULT_BOTTOM_EXCLUDE_DP = 88;
     static final boolean DEFAULT_HAPTIC = true;
     static final boolean DEFAULT_DEBUG = false;
+    static final boolean DEFAULT_AUTO_UPDATE_CHECK = true;
 
     private Prefs() {}
 
