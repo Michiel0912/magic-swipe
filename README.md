@@ -12,16 +12,16 @@ It does **not** replace Android's native gesture area. Magic Swipe only fills th
 
 ## Download
 
-The latest release, **Magic Swipe v0.4.0**, is available from GitHub Releases.
+The latest release, **Magic Swipe v0.4.1**, is available from GitHub Releases.
 
-**[Download MagicSwipe-v0.4.0.apk](https://github.com/Michiel0912/magic-swipe/releases/download/v0.4.0/MagicSwipe-v0.4.0.apk)**
+**[Download MagicSwipe-v0.4.1.apk](https://github.com/Michiel0912/magic-swipe/releases/download/v0.4.1/MagicSwipe-v0.4.1.apk)**
 
-[View the v0.4.0 release notes](https://github.com/Michiel0912/magic-swipe/releases/tag/v0.4.0) · [Download SHA-256 checksum](https://github.com/Michiel0912/magic-swipe/releases/download/v0.4.0/MagicSwipe-v0.4.0-SHA256.txt)
+[View the v0.4.1 release notes](https://github.com/Michiel0912/magic-swipe/releases/tag/v0.4.1) · [Download SHA-256 checksum](https://github.com/Michiel0912/magic-swipe/releases/download/v0.4.1/MagicSwipe-v0.4.1-SHA256.txt)
 
 SHA-256:
 
 ```text
-2fa8431c37cfbf8eb9625f578d3eeed605829b034538baadb2391ef8efa7eeee
+056ecd7dbb3823aacbd7d14c1b585fad58696cdf25edb9a555f95fe4b0fdedb8
 ```
 
 The APK is signed with the definitive Magic Swipe release signing identity. Future direct GitHub APK releases are intended to use the same signing identity so they can update an existing Magic Swipe installation normally.
@@ -34,7 +34,9 @@ The APK is signed with the definitive Magic Swipe release signing identity. Futu
 4. Open the app and enable **Magic Swipe** under Android Accessibility settings.
 5. Adjust the left/right edge zones and swipe distance if desired.
 
-Magic Swipe does not require root. Network access is used only by the settings screen for optional update checks against the public GitHub Releases API.
+If Android blocks the Accessibility permission for a sideloaded APK, open **Settings → Apps → Magic Swipe → three-dot menu → Allow restricted settings**, then return to Accessibility and enable Magic Swipe. There is no need to disable Play Protect globally.
+
+Magic Swipe does not require root. Network access is used only by the settings screen for optional update checks against the public GitHub Releases API. Automatic GitHub update checks are disabled by default in v0.4.1 and require explicit opt-in.
 
 ## Compatibility
 
@@ -62,7 +64,8 @@ See [COMPATIBILITY.md](COMPATIBILITY.md) for the test policy and how to report a
 - Uses an 80dp default top exclusion to protect toolbar actions near the screen corners
 - Optional haptic feedback
 - Test mode that makes the otherwise transparent extra zones visible
-- Built-in optional GitHub update checker, with automatic checks limited to once every 24 hours
+- Built-in optional GitHub update checker
+- Automatic GitHub update checks are disabled by default and require explicit consent
 - Manual **Check for updates now** action
 - Update prompt with installed/available version, release notes, and **Update** / **Later** choices
 - **System**, **Light**, and **Dark** appearance modes, with System as the default
@@ -100,7 +103,9 @@ The service is configured with `canRetrieveWindowContent=false`. It does not ins
 Requirements:
 
 - JDK 17+
-- Android SDK Platform 36 and Build-Tools 36.x
+- Android SDK Platform 36
+- Android SDK Build-Tools 36.0.0 for building
+- Android SDK Build-Tools 34.0.0 for the reproducible-signature-compatible release signing path
 - ADB only when using the build-and-install workflow
 
 Build and install:
@@ -124,7 +129,7 @@ INSTALL_ONLY.bat
 The output APK is:
 
 ```text
-MagicSwipe-v0.4.0.apk
+MagicSwipe-v0.4.1.apk
 ```
 
 ### Signing and upgrades
@@ -140,6 +145,7 @@ The local build continues to use the legacy filename `edgeback-local.keystore` i
 Magic Swipe is intentionally minimal:
 
 - Internet access is used only by the settings screen for optional update checks against the public GitHub Releases API
+- Automatic GitHub checks are disabled by default and require explicit informed consent
 - The AccessibilityService itself does not use the network
 - No account
 - No analytics
@@ -148,11 +154,13 @@ Magic Swipe is intentionally minimal:
 - No root
 - No system APK or framework modification
 
+See [PRIVACY.md](PRIVACY.md) for the full privacy statement.
+
 ## F-Droid status
 
-Magic Swipe is being prepared for submission to the official F-Droid repository. The repository contains upstream Fastlane/Triple-T text metadata, a Linux source-build helper, and a draft `fdroiddata` build recipe.
+Magic Swipe is being prepared for submission to the official F-Droid repository. v0.4.1 has passed the upstream metadata lint, Linux source build and a full current `fdroid build --test` candidate build. The final Windows APK and the pinned Linux source build have byte-identical non-signature APK payloads, and signature copying reconstructs the final signed APK bit-for-bit.
 
-The v0.4.0 build has been validated on real hardware and the source-build metadata has been updated for versionCode 8. **Magic Swipe is not yet available from the official F-Droid repository.** Store screenshots/icon metadata and the final `fdroiddata` lint/build CI still need to be completed before an inclusion request is opened.
+The app is **not yet available from the official F-Droid repository**. The remaining work is to publish the v0.4.1 upstream APK, enable F-Droid's `Binaries` / `AllowedAPKSigningKeys` verification against that public asset, add store screenshots, and submit the official fdroiddata inclusion merge request.
 
 See [FDROID_SUBMISSION.md](FDROID_SUBMISSION.md) for the current checklist and [fdroid/](fdroid/) for the packaging files.
 
