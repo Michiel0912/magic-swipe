@@ -165,7 +165,7 @@ public final class MainActivity extends Activity {
         textCol.setOrientation(LinearLayout.VERTICAL);
         textCol.setGravity(Gravity.CENTER_VERTICAL);
         textCol.addView(text(getString(R.string.app_name), 29, COLOR_CYAN, true));
-        textCol.addView(text("v0.4.0", 13, COLOR_MUTED, false));
+        textCol.addView(text("v0.4.1", 13, COLOR_MUTED, false));
         row.addView(textCol, new LinearLayout.LayoutParams(
                 0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
         root.addView(row);
