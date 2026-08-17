@@ -33,6 +33,7 @@ Description: |-
 
 RepoType: git
 Repo: https://github.com/Michiel0912/magic-swipe.git
+Binaries: https://github.com/Michiel0912/magic-swipe/releases/download/v%v/MagicSwipe-v%v.apk
 
 Builds:
   - versionName: 0.4.1
@@ -49,6 +50,8 @@ Builds:
       - export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
       - export ANDROID_SDK_ROOT=$$SDK$$
       - bash fdroid/build.sh
+
+AllowedAPKSigningKeys: 3b8af9d1f2d2ffad8145a34a05a805bbd4c5a50832720de276253fcdb8caada6
 
 AutoUpdateMode: Version v%v
 UpdateCheckMode: Tags ^v[0-9]+\.[0-9]+\.[0-9]+$
