@@ -1,0 +1,1 @@
+Added automatic GitHub update checks with an Update/Later prompt, plus System, Light and Dark appearance modes. The AccessibilityService still does not read screen content or use the network.
