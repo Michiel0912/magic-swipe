@@ -17,35 +17,32 @@ Description: |-
   The app uses Android's AccessibilityService only to detect swipes inside its
   own edge overlay and trigger the system Back action. It does not retrieve
   screen content, contains no analytics, and requires no root access or system
-  modification. Network access is used only by the settings screen for optional
-  update checks against the public GitHub Releases API; the AccessibilityService
-  itself does not use the network.
+  modification.
 
-  Compatibility is currently confirmed only on HONOR Magic8 Pro with MagicOS 10
-  / Android 16. Other HONOR and Android devices are expected or experimental
-  until confirmed by real-device reports.
+  Network access is limited to the optional update checker in the settings
+  screen. Manual checks are always user initiated. Automatic GitHub update
+  checks are disabled by default and require explicit informed consent. Before
+  opening an APK download from GitHub, Magic Swipe warns that the download is
+  outside F-Droid and bypasses F-Droid's build verification. The
+  AccessibilityService itself never uses the network.
+
+  Compatibility is currently confirmed on HONOR Magic8 Pro with MagicOS 10 /
+  Android 16. Other HONOR and Android devices are expected or experimental until
+  confirmed by real-device reports.
 
 RepoType: git
 Repo: https://github.com/Michiel0912/magic-swipe.git
 
 Builds:
-  - versionName: 0.3.1
-    versionCode: 7
-    commit: v0.3.1
-    output: MagicSwipe-v0.3.1-unsigned.apk
-    build:
-      - export ANDROID_SDK_ROOT=$$SDK$$
-      - bash fdroid/build.sh
-
-  - versionName: 0.4.0
-    versionCode: 8
-    commit: v0.4.0
-    output: MagicSwipe-v0.4.0-unsigned.apk
+  - versionName: 0.4.1
+    versionCode: 9
+    commit: v0.4.1
+    output: MagicSwipe-v0.4.1-unsigned.apk
     build:
       - export ANDROID_SDK_ROOT=$$SDK$$
       - bash fdroid/build.sh
 
 AutoUpdateMode: Version v%v
 UpdateCheckMode: Tags ^v[0-9]+\.[0-9]+\.[0-9]+$
-CurrentVersion: 0.4.0
-CurrentVersionCode: 8
+CurrentVersion: 0.4.1
+CurrentVersionCode: 9
