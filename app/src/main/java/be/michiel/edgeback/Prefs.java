@@ -2,6 +2,7 @@ package be.michiel.edgeback;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 
 final class Prefs {
@@ -16,6 +17,12 @@ final class Prefs {
     static final String DEBUG = "debug_zones";
     static final String AUTO_UPDATE_CHECK = "auto_update_check";
     static final String LAST_UPDATE_CHECK_MS = "last_update_check_ms";
+    static final String APPEARANCE = "appearance";
+
+    static final String APPEARANCE_SYSTEM = "system";
+    static final String APPEARANCE_LIGHT = "light";
+    static final String APPEARANCE_DARK = "dark";
+
     private static final String PREFS_MIGRATION_VERSION = "prefs_migration_version";
     private static final int CURRENT_PREFS_MIGRATION_VERSION = 1;
     private static final int LEGACY_DEFAULT_TOP_EXCLUDE_DP = 28;
@@ -29,6 +36,7 @@ final class Prefs {
     static final boolean DEFAULT_HAPTIC = true;
     static final boolean DEFAULT_DEBUG = false;
     static final boolean DEFAULT_AUTO_UPDATE_CHECK = true;
+    static final String DEFAULT_APPEARANCE = APPEARANCE_SYSTEM;
 
     private Prefs() {}
 
@@ -53,6 +61,16 @@ final class Prefs {
         }
 
         editor.putInt(PREFS_MIGRATION_VERSION, CURRENT_PREFS_MIGRATION_VERSION).apply();
+    }
+
+    static boolean isDarkMode(Context context, SharedPreferences prefs) {
+        String appearance = prefs.getString(APPEARANCE, DEFAULT_APPEARANCE);
+        if (APPEARANCE_DARK.equals(appearance)) return true;
+        if (APPEARANCE_LIGHT.equals(appearance)) return false;
+
+        int nightMode = context.getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK;
+        return nightMode == Configuration.UI_MODE_NIGHT_YES;
     }
 
     static int dp(Context context, float dp) {
