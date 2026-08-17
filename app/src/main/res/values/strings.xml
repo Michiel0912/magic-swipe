@@ -23,16 +23,21 @@
 <string name="appearance_light">Light</string>
 <string name="appearance_dark">Dark</string>
 <string name="section_updates">Updates</string>
-<string name="update_summary">Checks the public GitHub Releases API when this settings screen is opened. Automatic checks run at most once every 24 hours.</string>
-<string name="auto_update_check">Automatically check for updates</string>
-<string name="check_updates_now">Check for updates now</string>
+<string name="update_summary">Manual checks contact the public GitHub Releases API. Automatic checks are disabled by default and run at most once every 24 hours after you explicitly enable them.</string>
+<string name="auto_update_check">Automatically check GitHub for updates</string>
+<string name="check_updates_now">Check GitHub for updates now</string>
+<string name="update_consent_title">Enable GitHub update checks?</string>
+<string name="update_consent_message">Magic Swipe will contact GitHub automatically at most once every 24 hours while the settings screen is opened. If you choose to download an APK from GitHub, that download is outside F-Droid and bypasses F-Droid\'s build verification. Automatic checks are optional and can be disabled at any time.</string>
+<string name="update_consent_enable">Enable</string>
+<string name="update_consent_decline">Keep disabled</string>
 <string name="update_available_title">Magic Swipe update available</string>
 <string name="update_available_message">Installed: v%1$s\nAvailable: v%2$s</string>
-<string name="update_download">Update</string>
+<string name="update_external_download_warning">The Update button opens the official APK on GitHub. Installing that APK is outside F-Droid and bypasses F-Droid\'s build verification.</string>
+<string name="update_download">Open GitHub APK</string>
 <string name="update_later">Later</string>
 <string name="update_up_to_date">Magic Swipe v%1$s is up to date.</string>
 <string name="update_check_failed">Could not check GitHub for updates.</string>
 <string name="update_open_failed">Could not open the update download.</string>
-<string name="privacy_text">Privacy: no analytics and no screen-content access. INTERNET is used only by the settings screen to check the public GitHub Releases API for updates. The AccessibilityService itself does not use the network.</string>
+<string name="privacy_text">Privacy: no analytics and no screen-content access. INTERNET is used only for user-initiated or explicitly enabled update checks against the public GitHub Releases API. Automatic checks are disabled by default. The AccessibilityService itself does not use the network.</string>
 <string name="seek_value_format">%1$s: %2$d %3$s</string>
 </resources>
