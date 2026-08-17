@@ -21,16 +21,18 @@ Magic Swipe is being prepared for the official F-Droid repository. The F-Droid p
 - F-Droid candidate metadata: ready as `fdroid/be.michiel.edgeback.yml`
 - Store icon PNG: ready at `fastlane/metadata/android/en-US/images/icon.png`
 - GitHub Actions Linux source build: passing
+- Current fdroidserver + current fdroiddata metadata read/lint step: passing
 - CI-verified package ID: `be.michiel.edgeback`
 - CI-verified candidate version: `0.4.1` / versionCode 9 / compileSdk 36
-- CI unsigned APK SHA-256: `5db330ac6ff58f21277f86fe23754e8adae0690c0c924f4811121bd9771fa966`
+- Repeatable Linux unsigned APK SHA-256: `c0f1016b2e1b76175ae4dcbbca7cfc4792176adbe8615a3831efee488a5efc82`
+- Consecutive normalized Linux builds produce the same APK SHA-256: confirmed
 - Real-device validation for the gesture service: complete on HONOR Magic8 Pro / MagicOS 10 / Android 16
 - Definitive Magic Swipe upstream signing identity: established before public distribution
 - Real app screenshots for the store listing: pending
 - v0.4.1 real-device validation: pending
 - v0.4.1 release tag and signed APK: pending
-- Official fdroiddata lint/build pipeline: pending
-- Reproducible-build comparison against the upstream-signed APK: pending
+- Official fdroiddata inclusion-pipeline build: pending
+- Cross-platform reproducible-build comparison against the upstream-signed APK: pending
 - F-Droid inclusion merge request: pending
 
 ## Why v0.4.1 is the F-Droid candidate
@@ -43,24 +45,30 @@ On upgrade from v0.4.0, v0.4.1 resets automatic GitHub checks to disabled. Enabl
 
 The candidate builds successfully on a clean Ubuntu GitHub Actions runner using Temurin JDK 17, Android API 36 and Android Build-Tools 36.0.0. CI validates the resulting unsigned APK's package ID, versionName and versionCode before uploading it as an artifact.
 
-The current CI-produced unsigned APK has SHA-256:
+An initial reproducibility check found that repeated builds contained byte-identical APK entries but produced different APK hashes because the `classes.dex` ZIP entry inherited the wall-clock build timestamp. The Linux and Windows build scripts now normalize that timestamp before packaging.
 
-`5db330ac6ff58f21277f86fe23754e8adae0690c0c924f4811121bd9771fa966`
+After normalization, two consecutive Linux source builds produced the same unsigned APK SHA-256:
 
-This is a source-build validation hash, not the final signed release hash.
+`c0f1016b2e1b76175ae4dcbbca7cfc4792176adbe8615a3831efee488a5efc82`
+
+This confirms byte-repeatability of the Linux source build. It is a source-build validation hash, not the final signed release hash.
+
+The candidate metadata has also been read and linted successfully using the current fdroidserver against a fresh clone of the current fdroiddata configuration.
 
 ## Remaining steps before submission
 
 1. Build and install the v0.4.1 candidate on real hardware.
 2. Verify the update-consent flow, manual update check, appearance modes, AccessibilityService behavior, keyboard safe zone, and upper-corner safe zone.
 3. Publish the signed v0.4.1 GitHub APK using the established Magic Swipe signing identity and record its SHA-256/certificate fingerprint.
-4. Attempt a reproducible-build comparison. If it matches, add `Binaries` and `AllowedAPKSigningKeys` so F-Droid can publish the upstream-signed APK. If it does not match initially, submit with normal F-Droid signing and continue reproducibility work separately.
+4. Compare the unsigned payload of the Windows upstream build with the repeatable Linux source build. If it matches, add `Binaries` and `AllowedAPKSigningKeys` so F-Droid can publish the upstream-signed APK. If it does not match initially, submit with normal F-Droid signing and continue cross-platform reproducibility work separately.
 5. Add real app screenshots under `fastlane/metadata/android/en-US/images/phoneScreenshots/` if available. They are desirable store metadata but should not block technical build validation.
 6. Copy `fdroid/be.michiel.edgeback.yml` into a public fork of `fdroiddata` as `metadata/be.michiel.edgeback.yml`.
-7. Run/confirm the official fdroiddata pipeline (`lint`, source scan, metadata checks, and build).
+7. Run/confirm the official fdroiddata inclusion pipeline, including source scan and build.
 8. Open the official app-inclusion merge request after the build pipeline passes.
 
 ## Reproducible builds
+
+Repeatability of the Linux source build is now confirmed. The remaining reproducibility question is cross-platform equivalence between the final Windows-built upstream APK payload and the F-Droid-style Linux source build.
 
 Reproducible upstream-signed builds are preferred because users can then move between the GitHub and F-Droid APKs without changing signing identities. Magic Swipe is a strong candidate because it is a small Java/resources-only app with no native libraries or third-party dependency tree.
 
