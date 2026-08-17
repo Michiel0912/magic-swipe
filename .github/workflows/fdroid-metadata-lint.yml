@@ -1,0 +1,36 @@
+name: F-Droid metadata lint
+
+on:
+  push:
+    branches:
+      - fdroid-v0.4.1
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install current fdroidserver
+        run: |
+          python3 -m venv "$RUNNER_TEMP/fdroidserver-env"
+          . "$RUNNER_TEMP/fdroidserver-env/bin/activate"
+          python -m pip install --upgrade pip
+          python -m pip install 'git+https://gitlab.com/fdroid/fdroidserver.git'
+          fdroid --version
+
+      - name: Prepare fdroiddata-style metadata directory
+        run: |
+          mkdir -p "$RUNNER_TEMP/fdroiddata-check/metadata"
+          cp fdroid/be.michiel.edgeback.yml "$RUNNER_TEMP/fdroiddata-check/metadata/be.michiel.edgeback.yml"
+
+      - name: Read and lint metadata with fdroidserver
+        run: |
+          . "$RUNNER_TEMP/fdroidserver-env/bin/activate"
+          cd "$RUNNER_TEMP/fdroiddata-check"
+          fdroid readmeta
+          fdroid lint be.michiel.edgeback
