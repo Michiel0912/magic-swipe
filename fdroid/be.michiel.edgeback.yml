@@ -16,8 +16,10 @@ Description: |-
 
   The app uses Android's AccessibilityService only to detect swipes inside its
   own edge overlay and trigger the system Back action. It does not retrieve
-  screen content, does not use the network, contains no analytics, and requires
-  no root access or system modification.
+  screen content, contains no analytics, and requires no root access or system
+  modification. Network access is used only by the settings screen for optional
+  update checks against the public GitHub Releases API; the AccessibilityService
+  itself does not use the network.
 
   Compatibility is currently confirmed only on HONOR Magic8 Pro with MagicOS 10
   / Android 16. Other HONOR and Android devices are expected or experimental
