@@ -54,6 +54,12 @@ javac -encoding UTF-8 -source 17 -target 17 -classpath "$ANDROID_JAR" -d "$BUILD
   jar cf "$BUILD/classes.jar" .
 )
 "$D8" --lib "$ANDROID_JAR" --min-api 26 --output "$BUILD/dex" "$BUILD/classes.jar"
+
+# jar records the source file's wall-clock timestamp when adding classes.dex.
+# Normalize it so repeated Linux builds and the Windows release build use the
+# same ZIP entry timestamp instead of the build time.
+touch -t 200001010000.00 "$BUILD/dex/classes.dex"
+
 cp "$BUILD/resources-unsigned.apk" "$BUILD/with-dex.apk"
 jar uf "$BUILD/with-dex.apk" -C "$BUILD/dex" classes.dex
 "$ZIPALIGN" -f -p 4 "$BUILD/with-dex.apk" "$OUT"
