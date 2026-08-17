@@ -16,6 +16,17 @@
 <string name="suffix_bottom_exclusion">dp (protects the Home gesture and keyboard corner)</string><string name="section_behavior">Behavior</string>
 <string name="haptic_back">Haptic tap on Back</string><string name="debug_zones">Test mode: show the extra zones</string>
 <string name="restore_defaults">Restore defaults</string>
-<string name="privacy_text">Privacy: no INTERNET permission, no analytics, and no screen-content access. The AccessibilityService only performs GLOBAL_ACTION_BACK after a swipe in the extra edge zone.</string>
+<string name="section_updates">Updates</string>
+<string name="update_summary">Checks the public GitHub Releases API when this settings screen is opened. Automatic checks run at most once every 24 hours.</string>
+<string name="auto_update_check">Automatically check for updates</string>
+<string name="check_updates_now">Check for updates now</string>
+<string name="update_available_title">Magic Swipe update available</string>
+<string name="update_available_message">Installed: v%1$s\nAvailable: v%2$s</string>
+<string name="update_download">Update</string>
+<string name="update_later">Later</string>
+<string name="update_up_to_date">Magic Swipe v%1$s is up to date.</string>
+<string name="update_check_failed">Could not check GitHub for updates.</string>
+<string name="update_open_failed">Could not open the update download.</string>
+<string name="privacy_text">Privacy: no analytics and no screen-content access. INTERNET is used only by the settings screen to check the public GitHub Releases API for updates. The AccessibilityService itself does not use the network.</string>
 <string name="seek_value_format">%1$s: %2$d %3$s</string>
 </resources>
